@@ -39,6 +39,12 @@ class Config:
     chunk_overlap: int = 150
     parser_version: str = field(default_factory=_pypdf_tag)
 
+    # OCR (Tesseract) and layout parsing (Docling); both are optional installs
+    ocr_langs: str = field(default_factory=lambda: os.environ.get("RAG_OCR_LANGS", "hin+eng"))
+    tesseract_cmd: str = field(default_factory=lambda: os.environ.get("RAG_TESSERACT_CMD", ""))
+    ocr_max_pixels: int = 40_000_000  # skip absurdly large embedded images instead of exhausting RAM
+    layout: str = field(default_factory=lambda: os.environ.get("RAG_LAYOUT", "auto"))  # off | auto | on
+
     # retrieval + answer
     top_k: int = 5
     # Applied to chunks that carry a "score". Must match the scale of retrieval's score (agree with Member B).

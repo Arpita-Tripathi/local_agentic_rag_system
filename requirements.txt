@@ -7,6 +7,12 @@ sentence-transformers==6.2.0
 rank-bm25==0.2.2
 numpy==2.5.3
 
+# OCR for scanned pages (also needs the Tesseract program + Hindi/English data installed)
+pillow==13.0.0
+pytesseract==0.3.13
+
+# optional, heavy: better tables/layout. Install only if needed: pip install docling==2.145.0
+
 # local model
 litert-lm-api==0.19.0
 

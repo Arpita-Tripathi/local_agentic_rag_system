@@ -122,7 +122,7 @@ def test_save_upload_writes_private_temp_file_and_checks_size():
 
 def test_blank_page_is_flagged_image_only(tmp_path):
     pages = extract_pages(_blank_pdf(tmp_path / "b.pdf"))
-    assert pages == [{"page": 1, "text": "", "image_only": True}]
+    assert pages == [{"page": 1, "text": "", "image_only": True, "garbled": False}]
 
 
 def test_extract_reads_real_text(tmp_path):
@@ -144,9 +144,9 @@ def test_ingest_pdf_end_to_end(tmp_path):
     assert out["chunks"][0]["parser"].startswith("pypdf")
 
 
-def test_ingest_pdf_reports_image_only_pages(tmp_path):
-    out = ingest_pdf(_blank_pdf(tmp_path / "b.pdf", pages=2))
-    assert out["chunks"] == [] and out["image_only_pages"] == [1, 2]
+def test_ingest_pdf_with_no_text_raises_explicit_error(tmp_path):
+    with pytest.raises(PDFValidationError, match="No text could be extracted"):
+        ingest_pdf(_blank_pdf(tmp_path / "b.pdf", pages=2), ocr=False)
 
 
 # ---------- chunking ----------
