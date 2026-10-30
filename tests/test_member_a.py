@@ -321,6 +321,14 @@ def test_ask_keeps_retrieved_chunks_on_failure_for_the_ui():
     assert out["found"] is False and out["reason"] == "not_found" and len(out["chunks"]) == 2
 
 
+def test_ask_failure_keeps_earlier_evidence_when_rewrite_finds_nothing():
+    def search(q, k):
+        return CHUNKS if q == "q" else []
+
+    out = ask("q", search, FakeProvider(["NOT_FOUND", "unrelated rewrite"]))
+    assert out["found"] is False and [c["id"] for c in out["chunks"]] == ["c0000", "c0001"]
+
+
 def test_ask_empty_or_oversized_rewrite_is_sanitized():
     queries = []
 

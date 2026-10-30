@@ -38,7 +38,7 @@ def ask(
     """Return {"answer", "citations", "found", "reason", "retries", "latency_s", "chunks", "trace",
     "provider"}.
 
-    "chunks" is always what retrieval returned for the last attempt, so the UI can show the evidence
+    "chunks" is what retrieval returned (the newest non-empty attempt), so the UI can show the evidence
     even when the answer is "not found". "reason" is one of ok / low_score / not_found / no_valid_citation.
     """
     start = time.time()
@@ -46,10 +46,12 @@ def ask(
     query = question
     trace: List[Dict] = []
     chunks: List[Dict] = []
+    shown: List[Dict] = []  # newest non-empty retrieval, so a failed rewrite doesn't hide earlier evidence
     reason = "not_found"
 
     for attempt in range(max_retries + 1):
         chunks = search(query, CONFIG.top_k)
+        shown = chunks or shown
         kept = _above_threshold(chunks, min_score)
         step = {"attempt": attempt, "query": query, "retrieved": len(chunks), "kept": len(kept)}
 
@@ -79,7 +81,7 @@ def ask(
             log.info("retry %d: rewritten query=%r", attempt + 1, query)
 
     return {"answer": NOT_FOUND, "citations": [], "found": False, "reason": reason,
-            "retries": max_retries, "latency_s": time.time() - start, "chunks": chunks,
+            "retries": max_retries, "latency_s": time.time() - start, "chunks": shown,
             "trace": trace, "provider": provider}
 
 

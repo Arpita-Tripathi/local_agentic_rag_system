@@ -49,7 +49,8 @@ def summarize_chunk(chunk: Dict, generate: Generate, cache_dir: str = CONFIG.cac
     fd, tmp = tempfile.mkstemp(dir=os.path.dirname(path), suffix=".tmp")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
-            record = {"summary": summary, "chunk_id": chunk["id"], "provider": provider}
+            record = {"summary": summary, "chunk_id": chunk["id"], "doc_hash": chunk["doc_hash"],
+                      "provider": provider}
             json.dump(record, f, ensure_ascii=False)
         os.replace(tmp, path)  # atomic: a crash never leaves a half-written cache file
     except OSError as e:
@@ -57,3 +58,24 @@ def summarize_chunk(chunk: Dict, generate: Generate, cache_dir: str = CONFIG.cac
         if os.path.exists(tmp):
             os.unlink(tmp)
     return {"summary": summary, "cached": False}
+
+
+def clear_doc_summaries(doc_hash: str, cache_dir: str = CONFIG.cache_dir) -> int:
+    """Delete cached summaries that belong to one document. Returns how many files were removed."""
+    folder = os.path.join(cache_dir, "summaries")
+    removed = 0
+    try:
+        names = os.listdir(folder)
+    except OSError:
+        return 0
+    for name in names:
+        path = os.path.join(folder, name)
+        try:
+            with open(path, encoding="utf-8") as f:
+                belongs = json.load(f).get("doc_hash") == doc_hash
+            if belongs:
+                os.unlink(path)
+                removed += 1
+        except (OSError, ValueError, AttributeError):
+            continue
+    return removed

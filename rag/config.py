@@ -60,6 +60,9 @@ class Config:
     cloud_model: str = field(default_factory=lambda: os.environ.get("RAG_CLOUD_MODEL", ""))
     cloud_timeout_s: int = 60
 
+    # run log: one JSON line per question so a failure can be reproduced (stays on this machine)
+    log_questions: bool = field(default_factory=lambda: os.environ.get("RAG_LOG_QUESTIONS", "1") != "0")
+
     # paths (no hardcoded /content/... anywhere)
     cache_dir: str = field(default_factory=lambda: os.environ.get("RAG_CACHE_DIR", "./index_cache"))
 

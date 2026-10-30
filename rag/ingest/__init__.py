@@ -1,6 +1,6 @@
 """Ingest entry point: validate -> hash -> extract -> (layout) -> (OCR) -> chunk."""
 import logging
-from typing import Dict, List
+from typing import Callable, Dict, List, Optional
 
 from rag.config import CONFIG
 from rag.ingest.chunk import build_chunks
@@ -25,11 +25,14 @@ def _fmt_pages(nums: List[int], limit: int = 10) -> str:
     return shown + (f" and {len(nums) - limit} more" if len(nums) > limit else "")
 
 
-def ingest_pdf(path: str, layout: str = "", ocr: bool = True) -> Dict:
+def ingest_pdf(
+    path: str, layout: str = "", ocr: bool = True, progress: Optional[Callable[[str, float], None]] = None
+) -> Dict:
     """Return {"doc_hash", "n_pages", "chunks", "image_only_pages", "parsers", "warnings"}.
 
     layout: "off" | "auto" (Docling only when pypdf output looks table-heavy and Docling is installed)
     | "on" (Docling required). Defaults to RAG_LAYOUT.
+    progress(message, fraction) is called at each stage so a UI can show a progress bar.
     Raises PDFValidationError on bad input, or when no page yields any text (message says why).
     "image_only_pages" are the pages that still have no text after every enabled step.
     """
@@ -37,12 +40,19 @@ def ingest_pdf(path: str, layout: str = "", ocr: bool = True) -> Dict:
     if layout not in LAYOUT_MODES:
         raise ValueError(f"layout must be one of {LAYOUT_MODES}, got {layout!r}")
 
+    def step(msg: str, frac: float) -> None:
+        if progress:
+            progress(msg, frac)
+
+    step("Checking the file", 0.05)
     n_pages = validate_pdf(path)
     doc_hash = file_sha256(path)
+    step(f"Reading text from {n_pages} page(s)", 0.2)
     pages = extract_pages(path)
     warnings: List[str] = []
 
     if layout == "on" or (layout == "auto" and looks_table_heavy(pages) and layout_available()):
+        step("Analysing tables and layout", 0.4)
         try:
             blocks, _ = extract_layout_blocks(path)
             pages = merge_layout(pages, blocks)
@@ -57,6 +67,7 @@ def ingest_pdf(path: str, layout: str = "", ocr: bool = True) -> Dict:
 
     needs_ocr = [p["page"] for p in pages if p["image_only"]]
     if needs_ocr and ocr:
+        step(f"Running OCR on {len(needs_ocr)} page(s)", 0.6)
         try:
             pages, ocr_warnings = ocr_pages(path, pages)
             warnings.extend(ocr_warnings)
@@ -65,6 +76,7 @@ def ingest_pdf(path: str, layout: str = "", ocr: bool = True) -> Dict:
     elif needs_ocr:
         warnings.append(f"Pages {_fmt_pages(needs_ocr)} have no readable text; OCR is turned off.")
 
+    step("Splitting into passages", 0.9)
     chunks = build_chunks(pages, doc_hash)
     image_only = sorted({p["page"] for p in pages if p["image_only"]})
     if not chunks:
