@@ -18,6 +18,7 @@ from rag.pipeline import ask, describe_reason
 from rag.providers import ProviderError, get_provider
 from rag.runlog import log_run
 from rag.summaries import clear_doc_summaries
+from rag.textsafe import escape_markdown as esc
 
 log = logging.getLogger("app")
 
@@ -29,10 +30,12 @@ st.set_page_config(page_title="Ask your PDF", page_icon="📄", layout="wide")
 
 
 # ---------- helpers ----------
-@st.cache_data(max_entries=8, show_spinner=False)
-def _viewer_src(doc_hash: str, page: int, _data: bytes) -> str:
-    """A data: URL the browser's built-in PDF viewer can open at a given page (no JavaScript involved)."""
-    return "data:application/pdf;base64," + base64.b64encode(_data).decode("ascii") + f"#page={page}"
+def _viewer_src(data: bytes, page: int) -> str:
+    """A data: URL the browser's built-in PDF viewer can open at a given page (no JavaScript involved).
+
+    Deliberately not cached: a cache would keep a removed document's bytes in memory.
+    """
+    return "data:application/pdf;base64," + base64.b64encode(data).decode("ascii") + f"#page={page}"
 
 
 def _go_to_page(page: int) -> None:
@@ -49,7 +52,7 @@ def _remove_document() -> None:
         search_backend.delete_index(doc["doc_hash"])
         clear_doc_summaries(doc["doc_hash"])
         st.session_state.pop(f"consent_{doc['doc_hash']}", None)
-    for key in ("doc", "history", "preview_page", "provider_cloud"):
+    for key in ("doc", "history", "preview_page", "provider_cloud", "failed_upload"):
         st.session_state.pop(key, None)
     st.session_state.uploader_n = st.session_state.get("uploader_n", 0) + 1
 
@@ -59,7 +62,8 @@ def _use_cloud_instead() -> None:
     _reset_consent(st.session_state.doc["doc_hash"])
 
 
-def _load_document(upload) -> None:
+def _load_document(upload) -> str:
+    """Load the upload into session state. Returns "" on success, or the user-readable failure message."""
     data = upload.getvalue()
     with st.status("Reading your PDF…", expanded=True) as status:
         bar = st.progress(0.0)
@@ -77,19 +81,19 @@ def _load_document(upload) -> None:
             search, backend = search_backend.build_search(result["chunks"], result["doc_hash"])
         except PDFValidationError as e:
             status.update(label="Could not read this PDF", state="error")
-            st.error(str(e))
-            return
+            return str(e)
         except Exception as e:  # index/model problems must show a message, not a stack trace
             log.exception("document load failed")
             status.update(label="Could not prepare this PDF", state="error")
-            st.error(f"Something went wrong while preparing the document: {e}")
-            return
+            return f"Something went wrong while preparing the document: {e}"
         bar.progress(1.0, text="Done")
         status.update(label="Ready", state="complete", expanded=False)
     st.session_state.doc = {**result, "name": upload.name, "bytes": data, "file_id": upload.file_id,
                             "search": search, "backend": backend}
     st.session_state.history = []
     st.session_state.preview_page = 1
+    st.session_state.pop("failed_upload", None)
+    return ""
 
 
 def _provider(doc_hash: str):
@@ -122,10 +126,14 @@ def _sidebar(doc) -> None:
         if st.session_state.get("mode_choice", LOCAL) == LOCAL:
             st.success("Local only: nothing leaves this device.")
         else:
+            max_calls = 1 + 2 * CONFIG.max_retries
             st.warning(
-                f"Cloud mode: the passages retrieved for each question (up to {CONFIG.max_retries + 1} "
-                f"attempts) are sent to `{CONFIG.cloud_model or 'the configured model'}`. "
-                "The whole PDF is never sent. Don't use this for private documents."
+                f"Cloud mode: each question and the passages retrieved for it are sent to "
+                f"{esc(CONFIG.cloud_model or 'the configured model')}. Normally that is 1 call. If the first "
+                f"answer is not found, a second search runs, for up to {max_calls} calls: a rewrite call "
+                "that sends only your question, then another answer call with new passages. The whole PDF "
+                "is never sent, but the provider may keep what it receives. Don't use this for private "
+                "documents."
             )
             if doc:
                 st.checkbox("I allow sending excerpts of this document to the cloud provider",
@@ -137,7 +145,7 @@ def _sidebar(doc) -> None:
         if doc:
             st.divider()
             st.subheader("Document")
-            st.write(f"**{doc['name']}**")
+            st.write(f"**{esc(doc['name'])}**")
             st.caption(f"{doc['n_pages']} pages · {len(doc['chunks'])} passages · "
                        f"parser: {', '.join(doc['parsers'])}")
             st.caption(f"Search: {doc['backend']}")
@@ -148,10 +156,10 @@ def _sidebar(doc) -> None:
 def _render_turn(i: int, turn: dict, doc: dict) -> None:
     res = turn["result"]
     with st.chat_message("user"):
-        st.write(turn["question"])
+        st.markdown(esc(turn["question"]))
     with st.chat_message("assistant"):
         if res["found"]:
-            st.write(res["answer"])
+            st.markdown(esc(res["answer"]))
             st.caption("Sources (click to jump to the page):")
             cols = st.columns(min(len(res["citations"]), 4))
             for j, cite in enumerate(res["citations"]):
@@ -159,9 +167,9 @@ def _render_turn(i: int, turn: dict, doc: dict) -> None:
                                            on_click=_go_to_page, args=(cite["page"],))
             for cite in res["citations"]:
                 with st.expander(f"Evidence · page {cite['page']} · {cite['parser'] or 'unknown parser'}"):
-                    st.write(cite["snippet"])
+                    st.markdown(esc(cite["snippet"]))
         else:
-            st.write(res["answer"])
+            st.markdown(esc(res["answer"]))
             why = describe_reason(res["reason"])
             if why:
                 st.caption(why)
@@ -170,7 +178,7 @@ def _render_turn(i: int, turn: dict, doc: dict) -> None:
                     for c in res["chunks"]:
                         score = f" · score {c['score']:.2f}" if "score" in c else ""
                         st.markdown(f"**Page {c['page']}**{score}")
-                        st.write(c["text"][:400])
+                        st.markdown(esc(c["text"][:400]))
         st.caption(f"{res['provider']} · {res['latency_s']:.1f}s · retries {res['retries']} · "
                    f"parser {', '.join(doc['parsers'])} · index {doc['doc_hash'][:8]} ({doc['backend']})")
 
@@ -183,16 +191,17 @@ def _preview(doc: dict) -> None:
     nav[2].button("Next", on_click=_go_to_page, args=(min(page + 1, doc["n_pages"]),),
                   disabled=page >= doc["n_pages"])
     if len(doc["bytes"]) <= MAX_EMBED_BYTES:
-        st.iframe(_viewer_src(doc["doc_hash"], page, doc["bytes"]), height=640)
+        st.iframe(_viewer_src(doc["bytes"], page), height=640)
     else:
         st.info("This file is too large for the embedded viewer. The extracted text is shown below.")
     with st.expander(f"Text extracted from page {page}", expanded=len(doc["bytes"]) > MAX_EMBED_BYTES):
         texts = [c["text"] for c in doc["chunks"] if c["page"] == page]
-        st.write("\n\n".join(texts) if texts else "No text was extracted from this page.")
+        st.markdown(esc("\n\n".join(texts)) if texts else "No text was extracted from this page.")
 
 
 # ---------- main ----------
 def main() -> None:
+    st.session_state.setdefault("mode_choice", CLOUD if CONFIG.mode == "cloud" else LOCAL)
     doc = st.session_state.get("doc")
     _sidebar(doc)
 
@@ -205,15 +214,22 @@ def main() -> None:
         help=f"Up to {CONFIG.max_pdf_mb} MB and {CONFIG.max_pages} pages.",
     )
     if upload is not None and (doc is None or doc["file_id"] != upload.file_id):
-        _load_document(upload)
-        doc = st.session_state.get("doc")
+        failed = st.session_state.get("failed_upload")
+        if not failed or failed["file_id"] != upload.file_id:  # never retry a file that already failed
+            message = _load_document(upload)
+            if message:
+                st.session_state.failed_upload = {"file_id": upload.file_id, "message": message}
+            doc = st.session_state.get("doc")
+    failed = st.session_state.get("failed_upload")
+    if upload is not None and failed and failed["file_id"] == upload.file_id:
+        st.error(esc(failed["message"]))
 
     if doc is None:
         st.info("Upload a PDF to begin. Scanned pages need Tesseract (you'll be told if it's missing).")
         return
 
     for w in doc["warnings"]:
-        st.warning(w)
+        st.warning(esc(w))
     if doc["image_only_pages"]:
         st.warning("No text could be read from page(s) "
                    + ", ".join(map(str, doc["image_only_pages"][:15])) + ". Questions can't use them.")
@@ -223,7 +239,7 @@ def main() -> None:
 
     provider, problem = _provider(doc["doc_hash"])
     if problem:
-        st.error(problem)
+        st.error(esc(problem))
         if st.session_state.get("mode_choice", LOCAL) == LOCAL:
             st.button("Use the cloud instead (asks for your consent)", on_click=_use_cloud_instead)
 
@@ -238,10 +254,10 @@ def main() -> None:
             if result["citations"]:
                 st.session_state.preview_page = result["citations"][0]["page"]
         except ProviderError as e:
-            st.error(str(e))
+            st.error(esc(e))
         except Exception as e:
             log.exception("question failed")
-            st.error(f"Something went wrong while answering: {e}")
+            st.error(esc(f"Something went wrong while answering: {e}"))
 
     chat, preview = st.columns([3, 2], gap="large")
     with chat:

@@ -180,7 +180,7 @@ def test_app_not_found_shows_reason_and_retrieved_passages(app):
     at = app(_doc())
     at.chat_input[0].set_value("how many epochs of training").run()
     body = " ".join(m.value for m in at.markdown)
-    assert "I could not find this in the PDF." in body
+    assert "I could not find this in the PDF" in body  # shown with escaped punctuation
     assert any("Passages that were searched" in e.label for e in at.expander)
 
 
@@ -188,7 +188,7 @@ def test_app_low_relevance_question_abstains_without_model_call(app):
     app.provider.replies = ["rewritten but still unrelated"]
     at = app(_doc())
     at.chat_input[0].set_value("zebra quantum").run()
-    assert "I could not find this in the PDF." in " ".join(m.value for m in at.markdown)
+    assert "I could not find this in the PDF" in " ".join(m.value for m in at.markdown)
     assert len(app.provider.prompts) == 1 and "Excerpts:" not in app.provider.prompts[0]  # rewrite only
 
 
