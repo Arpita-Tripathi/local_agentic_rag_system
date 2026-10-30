@@ -1,5 +1,6 @@
 line-length = 110
 target-version = "py310"
+extend-exclude = ["docs"]  # original Colab export, kept as the Phase 0 baseline
 
 [lint]
 select = ["E", "F", "I"]

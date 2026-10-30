@@ -21,7 +21,9 @@ Excerpts:
 Question: {question}
 """
 
-_LABEL = re.compile(r"\[?\bC(\d+)\b\]?", re.IGNORECASE)
+_LABEL = re.compile(r"\bC(\d+)\b", re.IGNORECASE)
+_SOURCES = re.compile(r"\bSources?\s*:", re.IGNORECASE)
+_STARTS_NOT_FOUND = re.compile(r"^\s*(?:answer\s*:\s*)?\W*NOT_FOUND\b", re.IGNORECASE)
 
 
 def build_prompt(question: str, chunks: List[Dict]) -> str:
@@ -32,15 +34,19 @@ def build_prompt(question: str, chunks: List[Dict]) -> str:
 def parse_response(raw: str, chunks: List[Dict]) -> Dict:
     """Return {"answer", "source_ids", "found"}. Unknown labels are kept raw so citations can drop them."""
     text = raw.strip()
-    if "NOT_FOUND" in text:
+    if _STARTS_NOT_FOUND.match(text):  # only a reply that *is* NOT_FOUND abstains, not one that mentions it
         return {"answer": NOT_FOUND, "source_ids": [], "found": False}
 
-    parts = re.split(r"\n\s*Sources?:", text, maxsplit=1, flags=re.IGNORECASE)
-    answer = re.sub(r"^\s*Answer:\s*", "", parts[0], flags=re.IGNORECASE).strip()
-    labels = _LABEL.findall(parts[1]) if len(parts) > 1 else []
+    matches = list(_SOURCES.finditer(text))
+    if matches:  # last "Sources:" wins, on its own line or inline
+        last = matches[-1]
+        body, source_part = text[: last.start()], text[last.end():]
+    else:
+        body, source_part = text, ""
+    answer = re.sub(r"^\s*Answer\s*:\s*", "", body, flags=re.IGNORECASE).strip()
 
     source_ids: List[str] = []
-    for n in labels:
+    for n in _LABEL.findall(source_part):
         idx = int(n) - 1
         sid = chunks[idx]["id"] if 0 <= idx < len(chunks) else f"C{n}"
         if sid not in source_ids:
