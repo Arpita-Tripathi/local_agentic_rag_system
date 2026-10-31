@@ -12,7 +12,8 @@ Phases 0 to 4 are implemented for both members. 53 checklist items below are tic
 - Docling is not installed, so it is neither tested for real nor benchmarked against `pypdf`.
 - Tesseract is not installed on the development machine, so OCR is tested with a fake and the 7 scanned-page
   questions were not run.
-- A person must read the expected answers in `eval/questions.json`, and someone must run the setup on a fresh machine.
+- A person must read the expected answers in `eval/questions.json`, and someone should repeat the setup on a second
+  machine (installing the dependencies and running the tests was checked in a fresh virtual environment).
 
 **Now measured:** the local Gemma model runs on the development laptop, and answer-level metrics exist for both
 sample sets (README: 95.1% answer support, 97.6% citation accuracy, 0 unanswerable questions answered on the main
@@ -247,7 +248,7 @@ Member B
 
 Tick every item before calling it demo-ready.
 
-- [ ] A fresh environment installs pinned dependencies and runs the complete workflow. *(not run on a fresh machine)*
+- [x] A fresh environment installs pinned dependencies and runs the complete workflow. *(a new venv installed `requirements.txt` and the 313 tests passed on a clean checkout of `main`; the full workflow with the local model was run on the development laptop, not yet on a second machine)*
 - [x] Text, scanned, table, corrupt and empty-page PDFs each have a test.
 - [x] Every shown citation maps to a retrieved chunk and a real source page.
 - [x] Unanswerable questions abstain instead of inventing facts. *(local Gemma refused 15 of 15 unanswerable questions on the main set, including 10 near-miss ones, and 6 of 6 in the cross-lingual set; small sample)*

@@ -11,6 +11,29 @@ Works in English and Hindi. Runs on your machine by default; cloud is opt-in and
   only after you consent, and never silently as a fallback.
 - **Measured.** `python -m eval.run_eval` reproduces the numbers below. The Benchmark page in the app shows them.
 
+![How a PDF is indexed and how a question gets its answer](docs/workflow.svg)
+
+## Quick start
+
+```powershell
+python -m venv .venv ; .venv\Scripts\activate
+pip install -r requirements.txt
+python -c "from huggingface_hub import snapshot_download; snapshot_download('litert-community/gemma-4-E4B-it-litert-lm', allow_patterns=['gemma-4-E4B-it.litertlm'], local_dir='./models')"
+streamlit run app.py
+```
+
+Then upload `data/sample_text_hi.pdf` and ask `How many rain gauges were installed in Rampur?` (an English
+question about a Hindi PDF). The first answer is slow while the model loads. Full setup, optional OCR and cloud
+mode are under Setup. Tests need no model and no network: `pytest`.
+
+## Team and roles
+
+Two members, as planned in `docs/implementation.md`. Member A built the pipeline and the app (validation,
+extraction, OCR and layout fallbacks, chunking, answering, citations, providers, the Streamlit UI, the
+cross-lingual, translation and answer-check features). Member B built the data and quality side (hybrid retrieval and
+index, the sample PDFs, the golden question sets, the benchmark runners and Benchmark page, and the retrieval
+tests). Both reviewed each other's changes through pull requests where the plan asked for it.
+
 ## What makes it different
 
 Most PDF chatbots answer and hope. This one shows its work and checks itself, in Hindi and English.
@@ -51,7 +74,7 @@ without text, PDFs over 50 MB or 300 pages (configurable in `rag/config.py`).
 
 ## Setup
 
-Python 3.10 or newer. About 5 GB of disk for the local model, plus about 0.5 GB for the embedding model.
+Python 3.10 or newer (developed and tested on 3.12). About 5 GB of disk for the local model, plus about 0.5 GB for the embedding model.
 
 ```powershell
 python -m venv .venv
@@ -68,7 +91,10 @@ python -c "from huggingface_hub import snapshot_download; snapshot_download('lit
 ```
 
 If the download is refused, accept the model's terms on its Hugging Face page and run `huggingface-cli login`.
-The first question after start-up is slow while the model loads.
+The first question after start-up is slow while the model loads (about 20 s, more if another program is using
+the GPU). The embedding model (about 470 MB) is downloaded the first time a PDF is indexed, so that step needs
+internet once. After both downloads the app works offline. To run the model on the CPU instead of the integrated
+GPU, set `RAG_LITERT_BACKEND=cpu` in `.env`.
 
 **OCR (only for scanned PDFs):** install Tesseract with Hindi and English language data.
 Windows: the UB Mannheim build, tick **Hindi** under *Additional language data*. Linux:
@@ -79,6 +105,10 @@ Windows: the UB Mannheim build, tick **Hindi** under *Additional language data*.
 **Cloud mode (optional):** create your own key, put it in the environment as `OPENROUTER_API_KEY`
 (never in source or chat) and set `RAG_CLOUD_MODEL`. Check the provider's current limits and terms first.
 Never send a sensitive PDF.
+
+If `pip install` fails on Windows with "No such file or directory" under `torch\include`, the folder path is too
+long for Windows (260 characters). Create the virtual environment in a short path such as `C:ag\.venv`, or
+turn on Windows long paths.
 
 ## Run
 
@@ -242,9 +272,12 @@ Check these again before a release.
 ```
 app.py, pages/       Streamlit UI and the Benchmark page
 rag/                 ingest (extract, OCR, layout, page quality), retrieval, answer, citations, providers,
-                     config, support (answer and translation checks), translate, lang
+                     config, support (answer and translation checks), translate, lang, preview (page image),
+                     runlog, summaries
 eval/                sample PDF generator, golden questions, benchmark runners, saved results
 data/                sample PDFs and expected_outcomes.json
 tests/               pytest suite
-docs/implementation.md   plan, roles and phase gates
+docs/implementation.md   plan, roles, phase gates and what is still open
+docs/workflow.svg        the workflow diagram above
+docs/PDF_RAG_Project_Reliability_Plan.html   the research plan the project follows
 ```
