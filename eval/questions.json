@@ -1,0 +1,914 @@
+{
+ "version": 1,
+ "note": "Gold pages are 1-based. keywords are accepted spellings of the answer; at least one must appear on a gold page. Verify by hand against data/*.pdf, then run: python -m eval.run_eval --check",
+ "questions": [
+  {
+   "id": "en01",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Which lab ran the study?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "Riverbend Data Lab",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "riverbend"
+   ]
+  },
+  {
+   "id": "en02",
+   "doc": "data/sample_text_en.pdf",
+   "question": "When was the study run?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "March 2025",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "march 2025",
+    "march"
+   ]
+  },
+  {
+   "id": "en03",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How much memory did the laptop have?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "16 GB",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "16 gb",
+    "16"
+   ]
+  },
+  {
+   "id": "en04",
+   "doc": "data/sample_text_en.pdf",
+   "question": "What passage size, in characters, was used?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "1000 characters",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "1000"
+   ]
+  },
+  {
+   "id": "en05",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many dimensions do the MiniLM vectors have?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "384",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "384"
+   ]
+  },
+  {
+   "id": "en06",
+   "doc": "data/sample_text_en.pdf",
+   "question": "What constant was used in reciprocal rank fusion?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "60",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "60"
+   ]
+  },
+  {
+   "id": "en07",
+   "doc": "data/sample_text_en.pdf",
+   "question": "What recall did hybrid search reach at five passages?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "91 percent",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "91"
+   ]
+  },
+  {
+   "id": "en08",
+   "doc": "data/sample_text_en.pdf",
+   "question": "What was the median answer time?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "4.2 seconds",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "4.2"
+   ]
+  },
+  {
+   "id": "en09",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many of the failures were caused by scanned pages?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "14 of the 31 failures",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "14"
+   ]
+  },
+  {
+   "id": "en10",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many questions do the authors recommend for a repeat of the study?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "at least 500",
+   "expected_pages": [
+    4
+   ],
+   "keywords": [
+    "500"
+   ]
+  },
+  {
+   "id": "en11",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many files did the team collect?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "48 files",
+   "expected_pages": [
+    5
+   ],
+   "keywords": [
+    "48"
+   ]
+  },
+  {
+   "id": "en12",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Which files were excluded from the collection?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "files larger than 50 megabytes",
+   "expected_pages": [
+    5
+   ],
+   "keywords": [
+    "50 megabytes",
+    "50"
+   ]
+  },
+  {
+   "id": "en13",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many of the questions had no answer in the documents?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "thirty",
+   "expected_pages": [
+    6
+   ],
+   "keywords": [
+    "thirty",
+    "30"
+   ]
+  },
+  {
+   "id": "en14",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many tokens of output did the prompt allow?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "512 tokens",
+   "expected_pages": [
+    7
+   ],
+   "keywords": [
+    "512"
+   ]
+  },
+  {
+   "id": "en15",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many unanswerable questions did the system refuse to answer?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "27 of the 30",
+   "expected_pages": [
+    8
+   ],
+   "keywords": [
+    "27"
+   ]
+  },
+  {
+   "id": "en16",
+   "doc": "data/sample_text_en.pdf",
+   "question": "What will the authors test next?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "a multilingual embedding model",
+   "expected_pages": [
+    8
+   ],
+   "keywords": [
+    "multilingual"
+   ]
+  },
+  {
+   "id": "en17",
+   "doc": "data/sample_text_en.pdf",
+   "question": "What is the capital of France?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "en18",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How do I bake sourdough bread?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "en19",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Who won the football world cup?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "en20",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How much funding did the study receive?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "en21",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Which programming language was the system written in?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "en22",
+   "doc": "data/sample_text_en.pdf",
+   "question": "What was the price of the laptop?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "en23",
+   "doc": "data/sample_text_en.pdf",
+   "question": "How many people work in the Riverbend Data Lab?",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "hg01",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Study ke liye kitne sawal likhe gaye the?",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "120",
+   "expected_pages": [
+    1,
+    6
+   ],
+   "keywords": [
+    "120"
+   ]
+  },
+  {
+   "id": "hg02",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Hybrid search ka recall kitna tha?",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "91 percent",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "91"
+   ]
+  },
+  {
+   "id": "hg03",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Passage ki size kitni thi?",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "1000 characters",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "1000"
+   ]
+  },
+  {
+   "id": "hg04",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Model ko kitne tokens tak output dene ki ijazat thi?",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "512 tokens",
+   "expected_pages": [
+    7
+   ],
+   "keywords": [
+    "512"
+   ]
+  },
+  {
+   "id": "hg05",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Kitni files collect ki gayi thi?",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "48 files",
+   "expected_pages": [
+    5
+   ],
+   "keywords": [
+    "48"
+   ]
+  },
+  {
+   "id": "hg06",
+   "doc": "data/sample_text_en.pdf",
+   "question": "Is study ka budget kitna tha?",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "hi01",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "रामपुर में कितने वर्षामापी यंत्र लगाए गए थे?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "पाँच",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "पाँच",
+    "5"
+   ]
+  },
+  {
+   "id": "hi02",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "आँकड़े किस वर्ष एकत्र किए गए?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "2024",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "2024"
+   ]
+  },
+  {
+   "id": "hi03",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "आँकड़े कितने महीनों तक एकत्र किए गए?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "तीन महीने",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "तीन",
+    "3"
+   ]
+  },
+  {
+   "id": "hi04",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "सबसे अधिक वर्षा किस महीने में हुई?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "जुलाई",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "जुलाई"
+   ]
+  },
+  {
+   "id": "hi05",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "अगस्त में कितनी वर्षा दर्ज की गई?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "210 मिलीमीटर",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "210"
+   ]
+  },
+  {
+   "id": "hi06",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "सितंबर में कितने मिलीमीटर वर्षा हुई?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "95 मिलीमीटर",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "95"
+   ]
+  },
+  {
+   "id": "hi07",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "एक ही दिन में सबसे अधिक वर्षा कितनी थी?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "85 मिलीमीटर",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "85"
+   ]
+  },
+  {
+   "id": "hi08",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "आँकड़े किसने दर्ज किए?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "श्री मोहन लाल",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "मोहन लाल",
+    "मोहन"
+   ]
+  },
+  {
+   "id": "hi09",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "किसानों को धान की बुवाई कब करने की सलाह दी गई?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "जुलाई के पहले सप्ताह में",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "पहले सप्ताह",
+    "जुलाई"
+   ]
+  },
+  {
+   "id": "hi10",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "अगले वर्ष कितने वर्षामापी यंत्र लगाने की योजना है?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "सात",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "सात",
+    "7"
+   ]
+  },
+  {
+   "id": "hi11",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "भारत की राजधानी क्या है?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "hi12",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "सबसे तेज़ दौड़ने वाला जानवर कौन सा है?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "hi13",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "रामपुर की जनसंख्या कितनी है?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "hi14",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "रामपुर में अक्टूबर में कितनी वर्षा हुई?",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "mx01",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "Rampur में September में कितनी rainfall हुई?",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "95 मिलीमीटर",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "95"
+   ]
+  },
+  {
+   "id": "mx02",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "monsoon data किसने record किया?",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "श्री मोहन लाल",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "मोहन"
+   ]
+  },
+  {
+   "id": "mx03",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "सबसे ज़्यादा rain किस month में हुई?",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "जुलाई",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "जुलाई",
+    "july"
+   ]
+  },
+  {
+   "id": "mx04",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "Rampur में rain gauge कितने लगाए गए थे?",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "पाँच",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "पाँच",
+    "5",
+    "five"
+   ]
+  },
+  {
+   "id": "mx05",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "Rampur का population कितना है?",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "tb01",
+   "doc": "data/sample_tables.pdf",
+   "question": "What was the recall at 5 for hybrid retrieval in the table?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "expected_answer": "88",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "88"
+   ]
+  },
+  {
+   "id": "tb02",
+   "doc": "data/sample_tables.pdf",
+   "question": "What was the median time in seconds for keyword only retrieval?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "expected_answer": "0.9",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "0.9"
+   ]
+  },
+  {
+   "id": "tb03",
+   "doc": "data/sample_tables.pdf",
+   "question": "Which method had the lowest recall at 5?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "expected_answer": "Keyword only",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "keyword"
+   ]
+  },
+  {
+   "id": "tb04",
+   "doc": "data/sample_tables.pdf",
+   "question": "How many failures were there for scanned PDFs?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "expected_answer": "19",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "19"
+   ]
+  },
+  {
+   "id": "tb05",
+   "doc": "data/sample_tables.pdf",
+   "question": "How many table PDF questions were there?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "expected_answer": "30",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "30"
+   ]
+  },
+  {
+   "id": "tb06",
+   "doc": "data/sample_tables.pdf",
+   "question": "What was the total number of failures?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "expected_answer": "38",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "38"
+   ]
+  },
+  {
+   "id": "tb07",
+   "doc": "data/sample_tables.pdf",
+   "question": "What was the F1 score of the hybrid method?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "tb08",
+   "doc": "data/sample_tables.pdf",
+   "question": "How many failures were there for audio files?",
+   "language": "en",
+   "case_type": "table",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "oc01",
+   "doc": "data/sample_scanned.pdf",
+   "question": "How much rain did Lakeside record on Tuesday?",
+   "language": "en",
+   "case_type": "ocr",
+   "answerable": true,
+   "expected_answer": "42 millimetres",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "42"
+   ]
+  },
+  {
+   "id": "oc02",
+   "doc": "data/sample_scanned.pdf",
+   "question": "Who is the station manager?",
+   "language": "en",
+   "case_type": "ocr",
+   "answerable": true,
+   "expected_answer": "Priya Nair",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "priya"
+   ]
+  },
+  {
+   "id": "oc03",
+   "doc": "data/sample_scanned.pdf",
+   "question": "By how many centimetres did the lake level rise?",
+   "language": "en",
+   "case_type": "ocr",
+   "answerable": true,
+   "expected_answer": "7 centimetres",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "7"
+   ]
+  },
+  {
+   "id": "oc04",
+   "doc": "data/sample_scanned.pdf",
+   "question": "When was the tipping bucket gauge bought?",
+   "language": "en",
+   "case_type": "ocr",
+   "answerable": true,
+   "expected_answer": "2019",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "2019"
+   ]
+  },
+  {
+   "id": "oc05",
+   "doc": "data/sample_scanned.pdf",
+   "question": "How often is the battery replaced?",
+   "language": "en",
+   "case_type": "ocr",
+   "answerable": true,
+   "expected_answer": "every 6 months",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "6 months",
+    "6"
+   ]
+  },
+  {
+   "id": "oc06",
+   "doc": "data/sample_scanned.pdf",
+   "question": "What was the wind speed at Lakeside?",
+   "language": "en",
+   "case_type": "ocr",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "oc07",
+   "doc": "data/sample_scanned.pdf",
+   "question": "Who built the weather station?",
+   "language": "en",
+   "case_type": "ocr",
+   "answerable": false,
+   "unanswerable_kind": "near_miss",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  }
+ ]
+}

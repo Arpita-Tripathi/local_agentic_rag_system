@@ -1,0 +1,2431 @@
+{
+ "meta": {
+  "date": "2026-10-31",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "mode": "per document",
+  "answers": "retrieval only",
+  "top_k": 5,
+  "score_threshold": 0.15,
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "parser": "pypdf@6.21.4",
+  "ocr_available": false,
+  "documents": [
+   "data/sample_tables.pdf",
+   "data/sample_text_en.pdf",
+   "data/sample_text_hi.pdf"
+  ],
+  "skipped_documents": {
+   "data/sample_scanned.pdf": "No text could be extracted from this PDF. Pages 1, 2 have no readable text; OCR is turned off."
+  },
+  "n_questions": 63,
+  "n_run": 56,
+  "index_build_s": 23.07,
+  "hardware": {
+   "platform": "Windows-11-10.0.26200-SP0",
+   "processor": "AMD64 Family 23 Model 160 Stepping 0, AuthenticAMD",
+   "cpus": 8,
+   "python": "3.12.10"
+  }
+ },
+ "overall": {
+  "n_answerable": 41,
+  "n_unanswerable": 15,
+  "recall@1": 0.8049,
+  "recall@3": 1.0,
+  "recall@5": 1.0,
+  "mrr@5": 0.8821,
+  "recall@5_kept": 1.0,
+  "abstain_retrieval": 0.2,
+  "abstain_off_topic": 0.6,
+  "abstain_near_miss": 0.0,
+  "top_score_answerable_median": 0.505,
+  "top_score_unanswerable_max": 0.658,
+  "search_ms_median": 19.15,
+  "search_ms_p95": 24.4
+ },
+ "by_language": {
+  "en": {
+   "n_answerable": 22,
+   "n_unanswerable": 9,
+   "recall@1": 0.8182,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.8939,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.3333,
+   "abstain_off_topic": 1.0,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.483,
+   "top_score_unanswerable_max": 0.367,
+   "search_ms_median": 18.7,
+   "search_ms_p95": 24.0
+  },
+  "hi": {
+   "n_answerable": 10,
+   "n_unanswerable": 4,
+   "recall@1": 0.9,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.95,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.0,
+   "abstain_off_topic": 0.0,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.653,
+   "top_score_unanswerable_max": 0.658,
+   "search_ms_median": 20.85,
+   "search_ms_p95": 25.6
+  },
+  "hinglish": {
+   "n_answerable": 5,
+   "n_unanswerable": 1,
+   "recall@1": 0.8,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.8667,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.0,
+   "abstain_off_topic": null,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.334,
+   "top_score_unanswerable_max": 0.348,
+   "search_ms_median": 17.85,
+   "search_ms_p95": 21.9
+  },
+  "mixed": {
+   "n_answerable": 4,
+   "n_unanswerable": 1,
+   "recall@1": 0.5,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.6667,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.0,
+   "abstain_off_topic": null,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.451,
+   "top_score_unanswerable_max": 0.461,
+   "search_ms_median": 20.5,
+   "search_ms_p95": 22.8
+  }
+ },
+ "by_case_type": {
+  "table": {
+   "n_answerable": 6,
+   "n_unanswerable": 2,
+   "recall@1": 1.0,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 1.0,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.0,
+   "abstain_off_topic": null,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.567,
+   "top_score_unanswerable_max": 0.311,
+   "search_ms_median": 18.85,
+   "search_ms_p95": 21.2
+  },
+  "text": {
+   "n_answerable": 35,
+   "n_unanswerable": 13,
+   "recall@1": 0.7714,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.8619,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.2308,
+   "abstain_off_topic": 0.6,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.504,
+   "top_score_unanswerable_max": 0.658,
+   "search_ms_median": 19.3,
+   "search_ms_p95": 24.4
+  }
+ },
+ "weak_cases": [
+  {
+   "id": "en01",
+   "language": "en",
+   "case_type": "text",
+   "question": "Which lab ran the study?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "en02",
+   "language": "en",
+   "case_type": "text",
+   "question": "When was the study run?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "en15",
+   "language": "en",
+   "case_type": "text",
+   "question": "How many unanswerable questions did the system refuse to answer?",
+   "why": "gold page ranked 3, not 1"
+  },
+  {
+   "id": "en16",
+   "language": "en",
+   "case_type": "text",
+   "question": "What will the authors test next?",
+   "why": "gold page ranked 3, not 1"
+  },
+  {
+   "id": "hg01",
+   "language": "hinglish",
+   "case_type": "text",
+   "question": "Study ke liye kitne sawal likhe gaye the?",
+   "why": "gold page ranked 3, not 1"
+  },
+  {
+   "id": "hi10",
+   "language": "hi",
+   "case_type": "text",
+   "question": "अगले वर्ष कितने वर्षामापी यंत्र लगाने की योजना है?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "hi11",
+   "language": "hi",
+   "case_type": "text",
+   "question": "भारत की राजधानी क्या है?",
+   "why": "off-topic question but retrieval kept passages (top score 0.658)"
+  },
+  {
+   "id": "hi12",
+   "language": "hi",
+   "case_type": "text",
+   "question": "सबसे तेज़ दौड़ने वाला जानवर कौन सा है?",
+   "why": "off-topic question but retrieval kept passages (top score 0.603)"
+  },
+  {
+   "id": "mx01",
+   "language": "mixed",
+   "case_type": "text",
+   "question": "Rampur में September में कितनी rainfall हुई?",
+   "why": "gold page ranked 3, not 1"
+  },
+  {
+   "id": "mx02",
+   "language": "mixed",
+   "case_type": "text",
+   "question": "monsoon data किसने record किया?",
+   "why": "gold page ranked 3, not 1"
+  }
+ ],
+ "rows": [
+  {
+   "id": "en01",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Which lab ran the study?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.35
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.214
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.238
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.224
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.279
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.35,
+   "latency_ms": 19.1
+  },
+  {
+   "id": "en02",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "When was the study run?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.397
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.201
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.31
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.27
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.138
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.397,
+   "latency_ms": 15.1
+  },
+  {
+   "id": "en03",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How much memory did the laptop have?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.276
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.275
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.23
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.217
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.268
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.276,
+   "latency_ms": 24.0
+  },
+  {
+   "id": "en04",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What passage size, in characters, was used?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.248
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.267
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.226
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.217
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.198
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.248,
+   "latency_ms": 22.5
+  },
+  {
+   "id": "en05",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many dimensions do the MiniLM vectors have?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.3
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.103
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.102
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.078
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.073
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.3,
+   "latency_ms": 27.5
+  },
+  {
+   "id": "en06",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What constant was used in reciprocal rank fusion?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.324
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.094
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.162
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.0
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.324,
+   "latency_ms": 20.6
+  },
+  {
+   "id": "en07",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What recall did hybrid search reach at five passages?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.679
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.403
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.366
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.294
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.246
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.679,
+   "latency_ms": 20.0
+  },
+  {
+   "id": "en08",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the median answer time?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.359
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.336
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.281
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.16
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.225
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.359,
+   "latency_ms": 19.0
+  },
+  {
+   "id": "en09",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many of the failures were caused by scanned pages?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.505
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.441
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.386
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.376
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.281
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.505,
+   "latency_ms": 23.9
+  },
+  {
+   "id": "en10",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many questions do the authors recommend for a repeat of the study?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.446
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.404
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.46
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.295
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.369
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.446,
+   "latency_ms": 20.9
+  },
+  {
+   "id": "en11",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many files did the team collect?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.623
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.324
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.252
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.268
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.22
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.623,
+   "latency_ms": 18.6
+  },
+  {
+   "id": "en12",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Which files were excluded from the collection?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.593
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.279
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.205
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.198
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.096
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.593,
+   "latency_ms": 18.7
+  },
+  {
+   "id": "en13",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many of the questions had no answer in the documents?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.639
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.559
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.44
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.521
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.372
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.639,
+   "latency_ms": 19.5
+  },
+  {
+   "id": "en14",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many tokens of output did the prompt allow?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.518
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.31
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.208
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.205
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.171
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.518,
+   "latency_ms": 16.3
+  },
+  {
+   "id": "en15",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many unanswerable questions did the system refuse to answer?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.511
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.468
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.308
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.441
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.405
+    ]
+   ],
+   "gold_rank": 3,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.511,
+   "latency_ms": 16.6
+  },
+  {
+   "id": "en16",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What will the authors test next?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.342
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.37
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.262
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.269
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.217
+    ]
+   ],
+   "gold_rank": 3,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.342,
+   "latency_ms": 16.5
+  },
+  {
+   "id": "en17",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "What is the capital of France?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.051
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.003
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.036
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.051,
+   "latency_ms": 16.1
+  },
+  {
+   "id": "en18",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "How do I bake sourdough bread?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.1
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.074
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.02
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.014
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.012
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.1,
+   "latency_ms": 16.6
+  },
+  {
+   "id": "en19",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "Who won the football world cup?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.095
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.083
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.086
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.065
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.107
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.095,
+   "latency_ms": 16.0
+  },
+  {
+   "id": "en20",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "How much funding did the study receive?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.324
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.16
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.174
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.192
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.35
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.324,
+   "latency_ms": 16.0
+  },
+  {
+   "id": "en21",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "Which programming language was the system written in?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.187
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.371
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.165
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.109
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.149
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.187,
+   "latency_ms": 16.7
+  },
+  {
+   "id": "en22",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "What was the price of the laptop?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.22
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.177
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.156
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.189
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.111
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.22,
+   "latency_ms": 15.7
+  },
+  {
+   "id": "en23",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "How many people work in the Riverbend Data Lab?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.367
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.199
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.219
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.249
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.34
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.367,
+   "latency_ms": 17.6
+  },
+  {
+   "id": "hg01",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Study ke liye kitne sawal likhe gaye the?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.334
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.213
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.117
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.199
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.151
+    ]
+   ],
+   "gold_rank": 3,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.334,
+   "latency_ms": 19.2
+  },
+  {
+   "id": "hg02",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Hybrid search ka recall kitna tha?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.475
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.385
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.314
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.329
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.265
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.475,
+   "latency_ms": 14.4
+  },
+  {
+   "id": "hg03",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Passage ki size kitni thi?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.172
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.188
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.168
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.107
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.102
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.172,
+   "latency_ms": 17.6
+  },
+  {
+   "id": "hg04",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Model ko kitne tokens tak output dene ki ijazat thi?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.197
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.167
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.165
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.154
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.14
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.197,
+   "latency_ms": 21.9
+  },
+  {
+   "id": "hg05",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Kitni files collect ki gayi thi?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.352
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.282
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.194
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.183
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.156
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.352,
+   "latency_ms": 18.1
+  },
+  {
+   "id": "hg06",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "Is study ka budget kitna tha?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.348
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.137
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.221
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.179
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.133
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.348,
+   "latency_ms": 15.9
+  },
+  {
+   "id": "hi01",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "रामपुर में कितने वर्षामापी यंत्र लगाए गए थे?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.778
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.666
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.605
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.778,
+   "latency_ms": 21.8
+  },
+  {
+   "id": "hi02",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "आँकड़े किस वर्ष एकत्र किए गए?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.63
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.522
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.518
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.63,
+   "latency_ms": 17.2
+  },
+  {
+   "id": "hi03",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "आँकड़े कितने महीनों तक एकत्र किए गए?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.681
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.565
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.594
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.681,
+   "latency_ms": 17.0
+  },
+  {
+   "id": "hi04",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "सबसे अधिक वर्षा किस महीने में हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.632
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.59
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.592
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.632,
+   "latency_ms": 19.8
+  },
+  {
+   "id": "hi05",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "अगस्त में कितनी वर्षा दर्ज की गई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.638
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.619
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.619
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.638,
+   "latency_ms": 20.8
+  },
+  {
+   "id": "hi06",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "सितंबर में कितने मिलीमीटर वर्षा हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.605
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.579
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.569
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.605,
+   "latency_ms": 20.4
+  },
+  {
+   "id": "hi07",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "एक ही दिन में सबसे अधिक वर्षा कितनी थी?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.681
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.637
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.571
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.681,
+   "latency_ms": 18.8
+  },
+  {
+   "id": "hi08",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "आँकड़े किसने दर्ज किए?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.624
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.586
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.562
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.624,
+   "latency_ms": 19.4
+  },
+  {
+   "id": "hi09",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "किसानों को धान की बुवाई कब करने की सलाह दी गई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.682
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.623
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.576
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.682,
+   "latency_ms": 22.7
+  },
+  {
+   "id": "hi10",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "अगले वर्ष कितने वर्षामापी यंत्र लगाने की योजना है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.669
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.634
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.643
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.669,
+   "latency_ms": 25.6
+  },
+  {
+   "id": "hi11",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "भारत की राजधानी क्या है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.658
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.65
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.609
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.658,
+   "latency_ms": 20.9
+  },
+  {
+   "id": "hi12",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "सबसे तेज़ दौड़ने वाला जानवर कौन सा है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.603
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.602
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.564
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.603,
+   "latency_ms": 23.1
+  },
+  {
+   "id": "hi13",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "रामपुर की जनसंख्या कितनी है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.653
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.643
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.591
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.653,
+   "latency_ms": 24.2
+  },
+  {
+   "id": "hi14",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "रामपुर में अक्टूबर में कितनी वर्षा हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.641
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.584
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.593
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.641,
+   "latency_ms": 24.4
+  },
+  {
+   "id": "mx01",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Rampur में September में कितनी rainfall हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.438
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.413
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.329
+    ]
+   ],
+   "gold_rank": 3,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.438,
+   "latency_ms": 19.6
+  },
+  {
+   "id": "mx02",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "monsoon data किसने record किया?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.464
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.45
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.377
+    ]
+   ],
+   "gold_rank": 3,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.464,
+   "latency_ms": 20.5
+  },
+  {
+   "id": "mx03",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "सबसे ज़्यादा rain किस month में हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.401
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.462
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.455
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.401,
+   "latency_ms": 22.8
+  },
+  {
+   "id": "mx04",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Rampur में rain gauge कितने लगाए गए थे?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.504
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.449
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.365
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.504,
+   "latency_ms": 21.9
+  },
+  {
+   "id": "mx05",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "Rampur का population कितना है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.461
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.437
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.435
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.461,
+   "latency_ms": 17.0
+  },
+  {
+   "id": "tb01",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the recall at 5 for hybrid retrieval in the table?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.622
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.398
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.622,
+   "latency_ms": 21.1
+  },
+  {
+   "id": "tb02",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the median time in seconds for keyword only retrieval?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.558
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.192
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.558,
+   "latency_ms": 18.8
+  },
+  {
+   "id": "tb03",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "Which method had the lowest recall at 5?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.46
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.219
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.46,
+   "latency_ms": 18.9
+  },
+  {
+   "id": "tb04",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "How many failures were there for scanned PDFs?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.576
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.184
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.576,
+   "latency_ms": 21.2
+  },
+  {
+   "id": "tb05",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "How many table PDF questions were there?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.661
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.362
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.661,
+   "latency_ms": 19.5
+  },
+  {
+   "id": "tb06",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the total number of failures?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.413
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.14
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.413,
+   "latency_ms": 16.2
+  },
+  {
+   "id": "tb07",
+   "language": "en",
+   "case_type": "table",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "What was the F1 score of the hybrid method?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.258
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.184
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.258,
+   "latency_ms": 15.7
+  },
+  {
+   "id": "tb08",
+   "language": "en",
+   "case_type": "table",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "How many failures were there for audio files?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.311
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.146
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.311,
+   "latency_ms": 18.3
+  }
+ ]
+}

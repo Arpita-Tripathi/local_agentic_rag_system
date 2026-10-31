@@ -1,0 +1,24 @@
+{
+  "status": "not_recorded",
+  "what_this_is": "Phase 0 baseline: how the ORIGINAL Colab notebook (docs/Local_Agentic_RAG_System_PDF.ipynb) behaved, so later changes can be compared to it. Nothing below is a measurement yet.",
+  "how_to_fill": [
+    "Open docs/Local_Agentic_RAG_System_PDF.ipynb in Colab and run it on data/sample_text_en.pdf.",
+    "Ask each question below. Copy the notebook's answer, the chunks it retrieved (page and text start), and the seconds it took into the matching entry.",
+    "Set status to 'recorded' and fill 'recorded_on' and 'environment' (Colab runtime, GPU or CPU)."
+  ],
+  "recorded_on": null,
+  "environment": null,
+  "document": "data/sample_text_en.pdf",
+  "questions": [
+    {"id": "en01", "question": "Which lab ran the study?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en03", "question": "How much memory did the laptop have?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en04", "question": "What passage size, in characters, was used?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en06", "question": "What constant was used in reciprocal rank fusion?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en07", "question": "What recall did hybrid search reach at five passages?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en09", "question": "How many of the failures were caused by scanned pages?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en11", "question": "How many files did the team collect?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en14", "question": "How many tokens of output did the prompt allow?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en17", "question": "What is the capital of France?", "answer": null, "retrieved": null, "latency_s": null},
+    {"id": "en20", "question": "How much funding did the study receive?", "answer": null, "retrieved": null, "latency_s": null}
+  ]
+}

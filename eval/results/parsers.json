@@ -1,0 +1,53 @@
+{
+ "documents": [
+  "data/sample_scanned.pdf",
+  "data/sample_tables.pdf",
+  "data/sample_text_en.pdf",
+  "data/sample_text_hi.pdf"
+ ],
+ "results": [
+  {
+   "parser": "pypdf",
+   "installed": true,
+   "install_mb": 3.72,
+   "total_seconds": 0.675,
+   "evidence_kept": 0.8913,
+   "per_doc": {
+    "data/sample_scanned.pdf": {
+     "seconds": 0.005,
+     "chars": 0,
+     "pages_with_text": 0,
+     "evidence_kept": "0/5",
+     "error": null
+    },
+    "data/sample_tables.pdf": {
+     "seconds": 0.009,
+     "chars": 245,
+     "pages_with_text": 2,
+     "evidence_kept": "6/6",
+     "error": null
+    },
+    "data/sample_text_en.pdf": {
+     "seconds": 0.013,
+     "chars": 2310,
+     "pages_with_text": 8,
+     "evidence_kept": "21/21",
+     "error": null
+    },
+    "data/sample_text_hi.pdf": {
+     "seconds": 0.648,
+     "chars": 602,
+     "pages_with_text": 3,
+     "evidence_kept": "14/14",
+     "error": null
+    }
+   }
+  },
+  {
+   "parser": "docling",
+   "installed": false,
+   "install_mb": null,
+   "note": "not installed (pip install docling)"
+  }
+ ]
+}

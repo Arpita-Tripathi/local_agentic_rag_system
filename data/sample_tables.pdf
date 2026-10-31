@@ -1,0 +1,76 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 7 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 449 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 740 Tm (Table 1. Retrieval quality by method) Tj
+1 0 0 1 50 704 Tm (Method) Tj
+1 0 0 1 200 704 Tm (Recall at 5) Tj
+1 0 0 1 350 704 Tm (Median seconds) Tj
+1 0 0 1 50 686 Tm (Keyword only) Tj
+1 0 0 1 200 686 Tm (72) Tj
+1 0 0 1 350 686 Tm (0.9) Tj
+1 0 0 1 50 668 Tm (Embedding only) Tj
+1 0 0 1 200 668 Tm (81) Tj
+1 0 0 1 350 668 Tm (1.2) Tj
+1 0 0 1 50 650 Tm (Hybrid) Tj
+1 0 0 1 200 650 Tm (88) Tj
+1 0 0 1 350 650 Tm (1.4) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 6 0 R /Resources << /Font << /F1 7 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 513 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 740 Tm (Table 2. Failures by document type) Tj
+1 0 0 1 50 704 Tm (Type) Tj
+1 0 0 1 200 704 Tm (Questions) Tj
+1 0 0 1 350 704 Tm (Failures) Tj
+1 0 0 1 50 686 Tm (Text PDF) Tj
+1 0 0 1 200 686 Tm (60) Tj
+1 0 0 1 350 686 Tm (7) Tj
+1 0 0 1 50 668 Tm (Table PDF) Tj
+1 0 0 1 200 668 Tm (30) Tj
+1 0 0 1 350 668 Tm (12) Tj
+1 0 0 1 50 650 Tm (Scanned PDF) Tj
+1 0 0 1 200 650 Tm (30) Tj
+1 0 0 1 350 650 Tm (19) Tj
+1 0 0 1 50 632 Tm (Total) Tj
+1 0 0 1 200 632 Tm (120) Tj
+1 0 0 1 350 632 Tm (38) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000000747 00000 n 
+0000000873 00000 n 
+0000001437 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+1534
+%%EOF

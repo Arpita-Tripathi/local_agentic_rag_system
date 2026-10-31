@@ -9,6 +9,7 @@ Until that exists, the app uses the keyword search below. It is a DEVELOPMENT ST
 no Hindi/English semantics and no benchmark. The UI says so out loud whenever it is in use.
 """
 import re
+import sys
 from typing import Callable, Dict, List, Tuple
 
 Search = Callable[[str, int], List[Dict]]
@@ -41,12 +42,13 @@ def keyword_search(chunks: List[Dict]) -> Search:
 
 def _retrieval_module():
     try:
-        import rag.retrieval as mod
+        import rag.retrieval  # noqa: F401  (runs the import; the module is read from sys.modules below)
     except ModuleNotFoundError as e:
         if e.name and e.name.startswith("rag.retrieval"):
             return None
         raise  # a real missing dependency inside Member B's code must not be hidden
-    return mod
+    # Not `import rag.retrieval as mod`: that reads the attribute on the rag package, which can be stale.
+    return sys.modules["rag.retrieval"]
 
 
 def build_search(chunks: List[Dict], doc_hash: str) -> Tuple[Search, str]:

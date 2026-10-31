@@ -1,0 +1,82 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R] /Count 8 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 19 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 405 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 740 Tm (1. Overview) Tj
+1 0 0 1 50 704 Tm (This report describes a small study of question answering over PDF documents. The study) Tj
+1 0 0 1 50 686 Tm (was run by the Riverbend Data Lab in March 2025. The team evaluated three retrieval) Tj
+1 0 0 1 50 668 Tm (methods on 120 questions. All experiments ran on a laptop with 16 GB of memory and no) Tj
+1 0 0 1 50 650 Tm (GPU.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 6 0 R /Resources << /Font << /F1 19 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 520 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 740 Tm (2. Method) Tj
+1 0 0 1 50 704 Tm (Documents were split into passages of 1000 characters with an overlap of 150 characters.) Tj
+1 0 0 1 50 686 Tm (Each passage was embedded with a MiniLM model that produces vectors of 384 dimensions.) Tj
+1 0 0 1 50 668 Tm (Keyword search used the BM25 algorithm. The two rankings were merged with reciprocal) Tj
+1 0 0 1 50 650 Tm (rank fusion using a constant of 60. The system returns at most five passages for each) Tj
+1 0 0 1 50 632 Tm (question.) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 8 0 R /Resources << /Font << /F1 19 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 446 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 740 Tm (3. Results) Tj
+1 0 0 1 50 704 Tm (Hybrid search reached a recall of 91 percent at five passages. Keyword search alone) Tj
+1 0 0 1 50 686 Tm (reached 78 percent and embedding search alone reached 85 percent. The median answer time) Tj
+1 0 0 1 50 668 Tm (was 4.2 seconds. The slowest question took 19 seconds. Scanned pages were the main) Tj
+1 0 0 1 50 650 Tm (source of errors, causing 14 of the 31 failures.) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 19 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 371 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 740 Tm (4. Limitations) Tj
+1 0 0 1 50 704 Tm (The study used only English and Hindi documents. Tables were converted to plain text,) Tj
+1 0 0 1 50 686 Tm (which sometimes lost row boundaries. The authors recommend repeating the study with at) Tj
+1 0 0 1 50 668 Tm (least 500 questions. No private documents were used; every file was public.) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 12 0 R /Resources << /Font << /F1 19 0 R >> >> >>
+endobj
+12 0 obj
+<< /Length 419 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 50 740 Tm (5. Data Collection) Tj
+1 0 0 1 50 704 Tm (The documents came from three public sources: government reports, university course) Tj
+1 0 0 1 50 686 Tm (notes and open textbooks. In total the team collec

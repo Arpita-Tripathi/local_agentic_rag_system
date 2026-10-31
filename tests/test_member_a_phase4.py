@@ -69,7 +69,8 @@ def test_keyword_search_handles_hindi():
     assert search_backend.keyword_search(chunks)("मॉडल प्रशिक्षित", 3)[0]["id"] == "c0"
 
 
-def test_build_search_falls_back_to_stub_when_retrieval_missing():
+def test_build_search_falls_back_to_stub_when_retrieval_missing(monkeypatch):
+    monkeypatch.setitem(sys.modules, "rag.retrieval", None)  # simulates "not installed"
     search, name = search_backend.build_search(CHUNKS, "h")
     assert name == search_backend.STUB_NAME and callable(search)
 
