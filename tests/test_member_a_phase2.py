@@ -72,7 +72,7 @@ def test_garbled_page_is_discarded_and_marked_for_ocr(monkeypatch):
 
     monkeypatch.setattr("rag.ingest.extract.PdfReader", Reader)
     page = extract_pages("x.pdf")[0]
-    assert page == {"page": 1, "text": "", "image_only": True, "garbled": True}
+    assert (page["text"], page["image_only"], page["garbled"]) == ("", True, True)
 
 
 # ---------- OCR ----------

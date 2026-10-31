@@ -13,6 +13,7 @@ from rag.ingest.layout import (
     merge_layout,
 )
 from rag.ingest.ocr import OCRUnavailable, ocr_pages
+from rag.ingest.quality import assess_page, ocr_quality, summarize
 from rag.ingest.validate import PDFValidationError, file_sha256, validate_pdf
 
 log = logging.getLogger(__name__)
@@ -28,7 +29,8 @@ def _fmt_pages(nums: List[int], limit: int = 10) -> str:
 def ingest_pdf(
     path: str, layout: str = "", ocr: bool = True, progress: Optional[Callable[[str, float], None]] = None
 ) -> Dict:
-    """Return {"doc_hash", "n_pages", "chunks", "image_only_pages", "parsers", "warnings"}.
+    """Return {"doc_hash", "n_pages", "chunks", "image_only_pages", "parsers", "warnings", "page_quality",
+    "quality_summary"}. page_quality has one entry per page: score (0..1 or None for OCR), level, reasons.
 
     layout: "off" | "auto" (Docling only when pypdf output looks table-heavy and Docling is installed)
     | "on" (Docling required). Defaults to RAG_LAYOUT.
@@ -49,6 +51,7 @@ def ingest_pdf(
     doc_hash = file_sha256(path)
     step(f"Reading text from {n_pages} page(s)", 0.2)
     pages = extract_pages(path)
+    quality = {p["page"]: p.get("quality") or assess_page(p["text"], []) for p in pages}
     warnings: List[str] = []
 
     if layout == "on" or (layout == "auto" and looks_table_heavy(pages) and layout_available()):
@@ -76,6 +79,17 @@ def ingest_pdf(
     elif needs_ocr:
         warnings.append(f"Pages {_fmt_pages(needs_ocr)} have no readable text; OCR is turned off.")
 
+    for p in pages:
+        if p.get("type") == "ocr":
+            quality[p["page"]] = ocr_quality()
+    page_quality = [{"page": n, **quality[n]} for n in sorted(quality)]
+    legacy = [q["page"] for q in page_quality if q["legacy_font"]]
+    if legacy:
+        warnings.append(
+            f"Pages {_fmt_pages(legacy)} use an old Hindi font (such as Kruti Dev) whose text cannot be read "
+            "directly. They are read with OCR when it is available; otherwise they are skipped."
+        )
+
     step("Splitting into passages", 0.9)
     chunks = build_chunks(pages, doc_hash)
     image_only = sorted({p["page"] for p in pages if p["image_only"]})
@@ -91,4 +105,6 @@ def ingest_pdf(
         "image_only_pages": image_only,
         "parsers": sorted({c["parser"] for c in chunks}),
         "warnings": warnings,
+        "page_quality": page_quality,
+        "quality_summary": summarize(page_quality),
     }

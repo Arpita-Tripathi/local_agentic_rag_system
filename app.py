@@ -19,6 +19,15 @@ from rag.providers import ProviderError, get_provider
 from rag.runlog import log_run, purge_doc
 from rag.summaries import clear_doc_summaries, summarize_chunk
 from rag.textsafe import escape_markdown as esc
+from rag.translate import clear_doc_translations, target_language, translate_chunk
+from rag.ui_text import (
+    cross_lingual_note,
+    quality_line,
+    quality_summary_line,
+    support_notice,
+    translation_label,
+    translation_notice,
+)
 
 log = logging.getLogger("app")
 
@@ -52,8 +61,10 @@ def _remove_document() -> None:
         search_backend.delete_index(doc["doc_hash"])
         clear_doc_summaries(doc["doc_hash"])
         purge_doc(doc["doc_hash"])
+        clear_doc_translations(doc["doc_hash"])
         st.session_state.pop(f"consent_{doc['doc_hash']}", None)
-    for key in ("doc", "history", "preview_page", "provider_cloud", "failed_upload", "explained"):
+    for key in ("doc", "history", "preview_page", "provider_cloud", "failed_upload", "explained",
+                "translated"):
         st.session_state.pop(key, None)
     st.session_state.uploader_n = st.session_state.get("uploader_n", 0) + 1
 
@@ -150,6 +161,14 @@ def _sidebar(doc) -> None:
             st.caption(f"{doc['n_pages']} pages · {len(doc['chunks'])} passages · "
                        f"parser: {', '.join(doc['parsers'])}")
             st.caption(f"Search: {doc['backend']}")
+            summary_line = quality_summary_line(doc.get("quality_summary"))
+            if summary_line:
+                st.caption(summary_line)
+            weak = [q for q in doc.get("page_quality", []) if q["level"] in ("fair", "poor", "none", "ocr")]
+            if weak:
+                with st.expander(f"Pages to double-check ({len(weak)})"):
+                    for q in weak:
+                        st.markdown(f"**Page {q['page']}**: " + esc(quality_line(q)))
             meta = getattr(doc["search"], "index_meta", None)
             if meta:
                 st.caption(f"Index: {meta['n_chunks']} passages of up to {meta['chunk_size']} characters "
@@ -183,6 +202,43 @@ def _explain_table(i: int, cite: dict, doc: dict, provider) -> None:
         st.markdown(esc(out["summary"]))
 
 
+def _show_notice(notice) -> None:
+    if notice:
+        kind, text = notice
+        (st.warning if kind == "warning" else st.caption)(esc(text))
+
+
+def _translate(i: int, cite: dict, doc: dict, provider) -> None:
+    """Show a cited passage and its translation side by side. One model call per passage, then cached."""
+    chunk = next((c for c in doc["chunks"] if c["id"] == cite["id"]), None)
+    if chunk is None:
+        return
+    target = target_language(chunk)
+    key = (doc["doc_hash"], cite["id"], target)
+    done = st.session_state.setdefault("translated", {})
+    if key not in done:
+        if not st.button(translation_label(target), key=f"translate-{i}-{cite['id']}",
+                         disabled=provider is None,
+                         help="Shows the passage and its translation side by side. One call, then cached."):
+            return
+        try:
+            with st.spinner("Translating…"):
+                result = translate_chunk(chunk, provider, target)
+        except ProviderError as e:
+            st.error(esc(e))
+            return
+        if not result["translation"]:
+            return
+        done[key] = result
+    result = done[key]
+    left, right = st.columns(2)
+    left.caption(f"Original, page {cite['page']}")
+    left.markdown(esc(chunk["text"]))
+    right.caption(f"{translation_label(target)[len('Translate to '):]} (machine translation)")
+    right.markdown(esc(result["translation"]))
+    _show_notice(translation_notice(result["check"]))
+
+
 def _render_turn(i: int, turn: dict, doc: dict, provider=None) -> None:
     res = turn["result"]
     with st.chat_message("user"):
@@ -190,6 +246,10 @@ def _render_turn(i: int, turn: dict, doc: dict, provider=None) -> None:
     with st.chat_message("assistant"):
         if res["found"]:
             st.markdown(esc(res["answer"]))
+            note = cross_lingual_note(res)
+            if note:
+                st.caption(esc(note))
+            _show_notice(support_notice(res.get("support")))
             st.caption("Sources (click to jump to the page):")
             cols = st.columns(min(len(res["citations"]), 4))
             for j, cite in enumerate(res["citations"]):
@@ -200,6 +260,7 @@ def _render_turn(i: int, turn: dict, doc: dict, provider=None) -> None:
                     st.markdown(esc(cite["snippet"]))
                     if cite.get("type") == "table":
                         _explain_table(i, cite, doc, provider)
+                    _translate(i, cite, doc, provider)
         else:
             st.markdown(esc(res["answer"]))
             why = describe_reason(res["reason"])
@@ -222,6 +283,9 @@ def _preview(doc: dict) -> None:
     nav[0].button("Previous", on_click=_go_to_page, args=(max(page - 1, 1),), disabled=page <= 1)
     nav[2].button("Next", on_click=_go_to_page, args=(min(page + 1, doc["n_pages"]),),
                   disabled=page >= doc["n_pages"])
+    page_q = next((q for q in doc.get("page_quality", []) if q["page"] == page), None)
+    if page_q:
+        st.caption(esc(quality_line(page_q)))
     if len(doc["bytes"]) <= MAX_EMBED_BYTES:
         st.iframe(_viewer_src(doc["bytes"], page), height=640)
     else:

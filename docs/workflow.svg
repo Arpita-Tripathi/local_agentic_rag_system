@@ -12,12 +12,13 @@
 <text x="135.0" y="157" class="s" text-anchor="middle">encryption; private temp file</text>
 <rect x="270" y="96" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
 <text x="365.0" y="120" class="t" text-anchor="middle">2. Extract text</text>
-<text x="365.0" y="140" class="s" text-anchor="middle">pypdf, page by page;</text>
-<text x="365.0" y="157" class="s" text-anchor="middle">garbled text is discarded</text>
+<text x="365.0" y="140" class="s" text-anchor="middle">pypdf, page by page; each page</text>
+<text x="365.0" y="157" class="s" text-anchor="middle">gets a quality score;</text>
+<text x="365.0" y="174" class="s" text-anchor="middle">gibberish is dropped</text>
 <rect x="500" y="96" width="190" height="86" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
 <text x="595.0" y="120" class="t" text-anchor="middle">3. Fallbacks (if needed)</text>
-<text x="595.0" y="140" class="s" text-anchor="middle">scanned page: OCR (Tesseract,</text>
-<text x="595.0" y="157" class="s" text-anchor="middle">Hindi + English); tables: Docling</text>
+<text x="595.0" y="140" class="s" text-anchor="middle">scanned or old-font page: OCR</text>
+<text x="595.0" y="157" class="s" text-anchor="middle">(Tesseract); tables: Docling</text>
 <rect x="730" y="96" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
 <text x="825.0" y="120" class="t" text-anchor="middle">4. Chunk with provenance</text>
 <text x="825.0" y="140" class="s" text-anchor="middle">stable ID, page, heading,</text>
@@ -39,6 +40,7 @@
 <text x="365.0" y="300" class="t" text-anchor="middle">Hybrid search</text>
 <text x="365.0" y="320" class="s" text-anchor="middle">cosine similarity + BM25,</text>
 <text x="365.0" y="337" class="s" text-anchor="middle">fused with RRF, top 5</text>
+<text x="365.0" y="354" class="s" text-anchor="middle">Hindi and English, either way</text>
 <polygon points="495,319.0 595,271.0 695,319.0 595,367.0" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
 <text x="595" y="316.0" class="t" text-anchor="middle">Score at least</text>
 <text x="595" y="334.0" class="t" text-anchor="middle">0.20?</text>
@@ -48,8 +50,9 @@
 <text x="825.0" y="337" class="s" text-anchor="middle">device. Cloud only if you agree</text>
 <rect x="960" y="276" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
 <text x="1055.0" y="300" class="t" text-anchor="middle">Check the citations</text>
-<text x="1055.0" y="320" class="s" text-anchor="middle">keep only chunk IDs that were</text>
-<text x="1055.0" y="337" class="s" text-anchor="middle">retrieved; page from metadata</text>
+<text x="1055.0" y="320" class="s" text-anchor="middle">only retrieved chunk IDs count;</text>
+<text x="1055.0" y="337" class="s" text-anchor="middle">page from metadata; numbers</text>
+<text x="1055.0" y="354" class="s" text-anchor="middle">and names checked against them</text>
 <path d="M230 319.0 H268" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
 <path d="M460 319.0 H493" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
 <path d="M695 319.0 H728" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>

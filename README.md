@@ -11,6 +11,31 @@ Works in English and Hindi. Runs on your machine by default; cloud is opt-in and
   only after you consent, and never silently as a fallback.
 - **Measured.** `python -m eval.run_eval` reproduces the numbers below. The Benchmark page in the app shows them.
 
+## What makes it different
+
+Most PDF chatbots answer and hope. This one shows its work and checks itself, in Hindi and English.
+
+- **Ask in one language, read the other.** A Hindi question can be answered from an English PDF and the other way
+  round. The answer is written in the language of the question, with the source page, and the app says
+  "Asked in Hindi, answered from English text". Measured on 30 cross-lingual questions: the multilingual
+  retriever puts the right passage in the top 3 every time, and local Gemma answered all 24 answerable ones
+  correctly with the right page cited (small invented set; see Benchmark results). The English-only retriever fails.
+- **Translate the evidence, side by side.** Under any citation, "Translate to Hindi/English" shows the original
+  passage and its translation next to each other, with the page number. Every translation is checked: if a
+  number from the original is missing, the app says so. One model call per passage, then cached.
+- **The answer is checked against its own evidence.** After the model answers, plain code checks that every
+  number and name in the answer appears in the cited passages (it reads Devanagari digits and number words such as
+  "ten"). A number the passage does not contain is flagged in the interface, not hidden.
+- **It tells you which pages to distrust.** Every page gets a text-quality score with reasons. Hindi PDFs set in old
+  fonts (Kruti Dev, DevLys, Chanakya...) look fine on screen but extract as gibberish; those pages are detected by
+  their font names, thrown away rather than indexed, and sent to OCR.
+- **It says when it does not know.** Off-topic questions are stopped before the model sees them (all 5 in the main
+  sample set, 5 of 6 in the cross-lingual set), and the benchmark publishes its weak cases.
+
+What these checks are not: the answer check flags invented numbers and names, it does not prove an answer is
+right; translation quality has not been measured (there are no reference translations here), only the number check
+runs; font-based detection only knows the legacy font families listed in `rag/ingest/quality.py`.
+
 ## What is supported
 
 | | Supported |
@@ -85,8 +110,9 @@ downloaded on first use; this needs internet once). `RAG_SCORE_THRESHOLD` sets t
 63 hand-written questions over 6 invented sample PDFs: English, Hindi, Hinglish (Roman-script Hindi),
 code-switched, table and scanned cases; 46 answerable, 17 unanswerable. The sample text is original, so the
 files are free to share. 56 of the 63 questions ran: the 7 scanned-page questions need Tesseract, which was not
-installed for these runs. Retrieval only, no language model. Run on 2026-10-31 on Windows 11, Python 3.12.10,
-an 18-thread Intel CPU (retrieval runs on the CPU). Each result file in `eval/results/` records its own
+installed for these runs. Retrieval-only tables first; answers from the local model are further down. Run on
+2026-10-31 on Windows 11, Python 3.12.10, an Intel Core Ultra 5 125H laptop (18 threads, 15.4 GB RAM, Intel Arc
+integrated graphics, no discrete GPU). Retrieval runs on the CPU. Each result file in `eval/results/` records its own
 platform, settings and every per-question row; the Benchmark page reads them.
 
 One index per PDF (how the app works), score threshold 0.20:
@@ -102,6 +128,51 @@ time is about 22 ms (multilingual) and 12 ms (all-MiniLM) per PDF. The saved mul
 slow outlier (p95 2.2 s, likely model warm-up), so treat p95 as noisy. The multilingual model is the default
 because it ranks better on Hinglish and mixed-script questions, and because its scores separate off-topic
 questions from answerable ones (below).
+
+### Cross-lingual questions
+
+`eval/questions_crosslingual.json`: 30 questions (24 answerable, 6 off-topic): Hindi questions about the English
+sample PDF and English questions about the Hindi one, with the same gold pages as the main set. The Hindi
+translations were written for this set and have not been reviewed by a second Hindi reader. One index per PDF,
+threshold 0.20, retrieval only:
+
+| Embedding model | Recall@1 | Recall@3 | Recall@5 | Recall@5 after the threshold | Off-topic abstained |
+|---|---|---|---|---|---|
+| paraphrase-multilingual-MiniLM-L12-v2 (default) | 75.0% | 100% | 100% | 100% | 83.3% |
+| all-MiniLM-L6-v2 | 16.7% | 54.2% | 66.7% | 0% | 50.0% |
+
+Same-language Recall@1 for the default model is 95.1%, so crossing languages costs about 20 points at rank 1, and
+the right passage is still in the top 3 for every question. The English-only model scores below the threshold on
+almost every cross-lingual question, so it would answer none of them. Documents have only 2 to 8 passages, so
+Recall@5 is nearly saturated and Recall@1 and Recall@3 are the informative numbers. One off-topic question scored
+above the threshold (top score 0.255). Run it with
+`python -m eval.run_eval --questions eval/questions_crosslingual.json --out eval/results/crosslingual.json`.
+
+### Answer quality with the local model (Gemma 4 E4B via LiteRT)
+
+`python -m eval.run_eval --answers local`, same sample set, one index per PDF, threshold 0.20, the multilingual
+retriever, the full pipeline (retrieve, answer, validate citations). Gemma loaded in about 21 s and answered in a
+median of about 4 s (p95 about 12 s) on the laptop above. LiteRT chose its accelerator itself (it registered a
+WebGPU GPU backend and a CPU backend); which one served the run was not recorded.
+
+| Question set | Answered | Answer supported | Citation accuracy | Unanswerable questions refused |
+|---|---|---|---|---|
+| Main set (41 answerable, 15 unanswerable) | 100% | 95.1% (39 of 41) | 97.6% (40 of 41) | 15 of 15, including all 10 near-miss |
+| Cross-lingual (24 answerable, 6 unanswerable) | 100% | 100% (24 of 24) | 100% | 6 of 6 |
+
+"Answer supported" means an accepted spelling of the expected answer appears in the model's answer and the answer
+cites a gold page. The model never answered an unanswerable question.
+
+The two misses in the main set are real: **hi08** (a Hindi question) retrieved page 1 instead of page 2, and the
+model correctly said the report does not say, so the answer was lost but nothing was invented; **tb05** (a table
+question) answered "7" where the table says 30, with the right page cited. That is the failure the answer check
+cannot catch, because the wrong number is on the cited page. Read the evidence.
+
+The cross-lingual set first scored 66.7% on answer support. I read all 8 misses against the PDFs: every one was a
+correct answer written in the other language (for example "Five rain gauges", where the keyword was "पाँच"). I then
+added accepted spellings in both languages to the keywords and reran. The first, stricter result is kept as
+`eval/results/crosslingual_answers_local_source_keywords_only.json`. The 24 answers were checked by one reader, so
+a second Hindi reader should confirm them. This is a small sample of invented documents; real PDFs will be harder.
 
 ### Choosing the score threshold
 
@@ -126,9 +197,6 @@ Read these with care:
 
 - **Recall@5 is saturated.** Each sample PDF has only 2 to 8 passages, so a top-5 list holds most of the
   document. Recall@1 and the one-index run are the informative numbers. A larger corpus is needed for a real Recall@5.
-- **Answer-level numbers are not measured yet.** Answer support, citation accuracy and unsupported claims need
-  a Gemma run (`--answers local`), and the local model has not been run for this benchmark. Until that is done,
-  no claim is made about them.
 - **Docling is not benchmarked here.** `pypdf` kept the evidence for 41 of 46 answerable questions; the 5
   misses are the scanned PDF, which has no text layer. Run `eval.bench_parsers` with Docling installed to compare.
 
@@ -164,7 +232,8 @@ Check these again before a release.
 
 ```
 app.py, pages/       Streamlit UI and the Benchmark page
-rag/                 ingest, retrieval, answer, citations, providers, config
+rag/                 ingest (extract, OCR, layout, page quality), retrieval, answer, citations, providers,
+                     config, support (answer and translation checks), translate, lang
 eval/                sample PDF generator, golden questions, benchmark runners, saved results
 data/                sample PDFs and expected_outcomes.json
 tests/               pytest suite

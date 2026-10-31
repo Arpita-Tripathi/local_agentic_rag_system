@@ -1,0 +1,1369 @@
+{
+ "meta": {
+  "date": "2026-10-31",
+  "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
+  "mode": "per document",
+  "answers": "retrieval only",
+  "top_k": 5,
+  "score_threshold": 0.2,
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "parser": "pypdf@6.21.4",
+  "ocr_available": false,
+  "documents": [
+   "data/sample_text_en.pdf",
+   "data/sample_text_hi.pdf"
+  ],
+  "skipped_documents": {},
+  "n_questions": 30,
+  "n_run": 30,
+  "index_build_s": 21.81,
+  "hardware": {
+   "platform": "Windows-11-10.0.26300-SP0",
+   "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+   "cpus": 18,
+   "python": "3.12.10"
+  }
+ },
+ "overall": {
+  "n_answerable": 24,
+  "n_unanswerable": 6,
+  "recall@1": 0.75,
+  "recall@3": 1.0,
+  "recall@5": 1.0,
+  "mrr@5": 0.8681,
+  "recall@5_kept": 1.0,
+  "abstain_retrieval": 0.8333,
+  "abstain_off_topic": 0.8333,
+  "abstain_near_miss": null,
+  "top_score_answerable_median": 0.542,
+  "top_score_unanswerable_max": 0.255,
+  "search_ms_median": 55.6,
+  "search_ms_p95": 89.4
+ },
+ "by_language": {
+  "en_to_hi": {
+   "n_answerable": 10,
+   "n_unanswerable": 3,
+   "recall@1": 0.8,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.8833,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 1.0,
+   "abstain_off_topic": 1.0,
+   "abstain_near_miss": null,
+   "top_score_answerable_median": 0.559,
+   "top_score_unanswerable_max": 0.16,
+   "search_ms_median": 59.0,
+   "search_ms_p95": 114.7
+  },
+  "hi_to_en": {
+   "n_answerable": 14,
+   "n_unanswerable": 3,
+   "recall@1": 0.7143,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.8571,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.6667,
+   "abstain_off_topic": 0.6667,
+   "abstain_near_miss": null,
+   "top_score_answerable_median": 0.534,
+   "top_score_unanswerable_max": 0.255,
+   "search_ms_median": 51.4,
+   "search_ms_p95": 77.0
+  }
+ },
+ "by_case_type": {
+  "text": {
+   "n_answerable": 24,
+   "n_unanswerable": 6,
+   "recall@1": 0.75,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.8681,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.8333,
+   "abstain_off_topic": 0.8333,
+   "abstain_near_miss": null,
+   "top_score_answerable_median": 0.542,
+   "top_score_unanswerable_max": 0.255,
+   "search_ms_median": 55.6,
+   "search_ms_p95": 89.4
+  }
+ },
+ "weak_cases": [
+  {
+   "id": "xh08",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "question": "उत्तर देने का माध्यिका समय कितना था?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "xh09",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "question": "कितनी विफलताएँ स्कैन किए गए पन्नों के कारण हुईं?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "xh10",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "question": "अध्ययन दोहराने के लिए लेखक कम से कम कितने प्रश्नों की सलाह देते हैं?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "xh14",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "question": "लेखक आगे क्या परीक्षण करेंगे?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "xe08",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "question": "Who recorded the data?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "xe10",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "question": "How many rain gauges are planned for next year?",
+   "why": "gold page ranked 3, not 1"
+  },
+  {
+   "id": "xh17",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "question": "सबसे तेज़ दौड़ने वाला जानवर कौन सा है?",
+   "why": "off-topic question but retrieval kept passages (top score 0.255)"
+  }
+ ],
+ "rows": [
+  {
+   "id": "xh01",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "अध्ययन किस प्रयोगशाला ने किया?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.577
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.43
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.34
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.285
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.278
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.577,
+   "latency_ms": 77.0
+  },
+  {
+   "id": "xh02",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "यह अध्ययन कब किया गया था?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.534
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.512
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.377
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.334
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.286
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.534,
+   "latency_ms": 43.6
+  },
+  {
+   "id": "xh03",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "लैपटॉप में कितनी मेमोरी थी?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.549
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.465
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.329
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.326
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.321
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.549,
+   "latency_ms": 50.7
+  },
+  {
+   "id": "xh04",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "पैसेज का आकार अक्षरों में कितना रखा गया था?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.471
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.366
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.328
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.296
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.239
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.471,
+   "latency_ms": 41.8
+  },
+  {
+   "id": "xh05",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "MiniLM वेक्टरों में कितने आयाम होते हैं?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.533
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.321
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.317
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.2
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.194
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.533,
+   "latency_ms": 50.6
+  },
+  {
+   "id": "xh06",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "रेसिप्रोकल रैंक फ्यूज़न में कौन सा स्थिरांक इस्तेमाल हुआ?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.332
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.217
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.214
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.212
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.205
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.332,
+   "latency_ms": 51.5
+  },
+  {
+   "id": "xh07",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "पाँच पैसेज पर हाइब्रिड सर्च का रिकॉल कितना रहा?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.361
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.341
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.317
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.312
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.3
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.361,
+   "latency_ms": 63.6
+  },
+  {
+   "id": "xh08",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "उत्तर देने का माध्यिका समय कितना था?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.471
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.422
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.332
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.329
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.303
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.471,
+   "latency_ms": 50.0
+  },
+  {
+   "id": "xh09",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "कितनी विफलताएँ स्कैन किए गए पन्नों के कारण हुईं?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.581
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.565
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.54
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.509
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.468
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.581,
+   "latency_ms": 64.9
+  },
+  {
+   "id": "xh10",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "अध्ययन दोहराने के लिए लेखक कम से कम कितने प्रश्नों की सलाह देते हैं?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.683
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.587
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.533
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.532
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.386
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.683,
+   "latency_ms": 51.3
+  },
+  {
+   "id": "xh11",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "टीम ने कितनी फ़ाइलें इकट्ठी कीं?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.623
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.488
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.36
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.351
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.345
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.623,
+   "latency_ms": 55.7
+  },
+  {
+   "id": "xh12",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "संग्रह से कौन सी फ़ाइलें बाहर रखी गईं?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.617
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.406
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.328
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.272
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.271
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.617,
+   "latency_ms": 62.6
+  },
+  {
+   "id": "xh13",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "प्रॉम्प्ट में आउटपुट के लिए कितने टोकन की अनुमति थी?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.297
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.293
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.29
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.286
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.276
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.297,
+   "latency_ms": 51.4
+  },
+  {
+   "id": "xh14",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "लेखक आगे क्या परीक्षण करेंगे?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.468
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.435
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.358
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.352
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.29
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.468,
+   "latency_ms": 58.6
+  },
+  {
+   "id": "xe01",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many rain gauges were installed in Rampur?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.555
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.489
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.233
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.555,
+   "latency_ms": 55.6
+  },
+  {
+   "id": "xe02",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "In which year was the data collected?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.432
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.266
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.077
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.432,
+   "latency_ms": 59.0
+  },
+  {
+   "id": "xe03",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "For how many months was the data collected?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.496
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.349
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.104
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.496,
+   "latency_ms": 55.6
+  },
+  {
+   "id": "xe04",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "In which month was the rainfall highest?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.643
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.483
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.29
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.643,
+   "latency_ms": 55.1
+  },
+  {
+   "id": "xe05",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How much rainfall was recorded in August?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.728
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.561
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.318
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.728,
+   "latency_ms": 89.4
+  },
+  {
+   "id": "xe06",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many millimetres of rain fell in September?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.666
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.469
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.146
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.666,
+   "latency_ms": 78.8
+  },
+  {
+   "id": "xe07",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the highest rainfall in a single day?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.642
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.464
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.279
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.642,
+   "latency_ms": 49.1
+  },
+  {
+   "id": "xe08",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Who recorded the data?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.312
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.202
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.0
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.312,
+   "latency_ms": 53.4
+  },
+  {
+   "id": "xe09",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "When were farmers advised to sow paddy?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.421
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.24
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.045
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.421,
+   "latency_ms": 83.9
+  },
+  {
+   "id": "xe10",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many rain gauges are planned for next year?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.563
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.509
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.361
+    ]
+   ],
+   "gold_rank": 3,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.563,
+   "latency_ms": 76.7
+  },
+  {
+   "id": "xh15",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "फ्रांस की राजधानी क्या है?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.045
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.043
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.019
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.015
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.0
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.045,
+   "latency_ms": 50.9
+  },
+  {
+   "id": "xh16",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "खट्टी ब्रेड कैसे बनाई जाती है?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.116
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.077
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.023
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.015
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.013
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.116,
+   "latency_ms": 55.7
+  },
+  {
+   "id": "xh17",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "सबसे तेज़ दौड़ने वाला जानवर कौन सा है?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.255
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.179
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.169
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.158
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.123
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.255,
+   "latency_ms": 44.9
+  },
+  {
+   "id": "xe11",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "What is the capital of France?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.04
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.004
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.0
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.04,
+   "latency_ms": 114.7
+  },
+  {
+   "id": "xe12",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "How do I bake sourdough bread?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.093
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.0
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.0
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.093,
+   "latency_ms": 51.9
+  },
+  {
+   "id": "xe13",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "Which animal runs the fastest?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.16
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.146
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.109
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.16,
+   "latency_ms": 73.2
+  }
+ ]
+}

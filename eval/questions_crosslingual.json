@@ -1,0 +1,455 @@
+{
+ "version": 1,
+ "note": "Cross-lingual set: Hindi questions about the English sample PDF (hi_to_en) and English questions about the Hindi sample PDF (en_to_hi). Same gold pages and keywords as eval/questions.json. Translations were written for this set and have not been reviewed by a second Hindi reader. Run: python -m eval.run_eval --questions eval/questions_crosslingual.json --out eval/results/crosslingual.json Keywords include accepted spellings of the answer in BOTH languages, because the answer is written in the question's language. They were added after a first run scored 66.7% on answer support: all 8 misses were correct answers written in the other language.",
+ "questions": [
+  {
+   "id": "xh01",
+   "doc": "data/sample_text_en.pdf",
+   "question": "अध्ययन किस प्रयोगशाला ने किया?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "Riverbend Data Lab",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "riverbend"
+   ]
+  },
+  {
+   "id": "xh02",
+   "doc": "data/sample_text_en.pdf",
+   "question": "यह अध्ययन कब किया गया था?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "March 2025",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "march 2025",
+    "march",
+    "मार्च"
+   ]
+  },
+  {
+   "id": "xh03",
+   "doc": "data/sample_text_en.pdf",
+   "question": "लैपटॉप में कितनी मेमोरी थी?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "16 GB",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "16 gb",
+    "16"
+   ]
+  },
+  {
+   "id": "xh04",
+   "doc": "data/sample_text_en.pdf",
+   "question": "पैसेज का आकार अक्षरों में कितना रखा गया था?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "1000 characters",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "1000"
+   ]
+  },
+  {
+   "id": "xh05",
+   "doc": "data/sample_text_en.pdf",
+   "question": "MiniLM वेक्टरों में कितने आयाम होते हैं?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "384",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "384"
+   ]
+  },
+  {
+   "id": "xh06",
+   "doc": "data/sample_text_en.pdf",
+   "question": "रेसिप्रोकल रैंक फ्यूज़न में कौन सा स्थिरांक इस्तेमाल हुआ?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "60",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "60"
+   ]
+  },
+  {
+   "id": "xh07",
+   "doc": "data/sample_text_en.pdf",
+   "question": "पाँच पैसेज पर हाइब्रिड सर्च का रिकॉल कितना रहा?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "91 percent",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "91"
+   ]
+  },
+  {
+   "id": "xh08",
+   "doc": "data/sample_text_en.pdf",
+   "question": "उत्तर देने का माध्यिका समय कितना था?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "4.2 seconds",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "4.2"
+   ]
+  },
+  {
+   "id": "xh09",
+   "doc": "data/sample_text_en.pdf",
+   "question": "कितनी विफलताएँ स्कैन किए गए पन्नों के कारण हुईं?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "14 of the 31 failures",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "14"
+   ]
+  },
+  {
+   "id": "xh10",
+   "doc": "data/sample_text_en.pdf",
+   "question": "अध्ययन दोहराने के लिए लेखक कम से कम कितने प्रश्नों की सलाह देते हैं?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "at least 500",
+   "expected_pages": [
+    4
+   ],
+   "keywords": [
+    "500"
+   ]
+  },
+  {
+   "id": "xh11",
+   "doc": "data/sample_text_en.pdf",
+   "question": "टीम ने कितनी फ़ाइलें इकट्ठी कीं?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "48 files",
+   "expected_pages": [
+    5
+   ],
+   "keywords": [
+    "48"
+   ]
+  },
+  {
+   "id": "xh12",
+   "doc": "data/sample_text_en.pdf",
+   "question": "संग्रह से कौन सी फ़ाइलें बाहर रखी गईं?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "files larger than 50 megabytes",
+   "expected_pages": [
+    5
+   ],
+   "keywords": [
+    "50 megabytes",
+    "50"
+   ]
+  },
+  {
+   "id": "xh13",
+   "doc": "data/sample_text_en.pdf",
+   "question": "प्रॉम्प्ट में आउटपुट के लिए कितने टोकन की अनुमति थी?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "512 tokens",
+   "expected_pages": [
+    7
+   ],
+   "keywords": [
+    "512"
+   ]
+  },
+  {
+   "id": "xh14",
+   "doc": "data/sample_text_en.pdf",
+   "question": "लेखक आगे क्या परीक्षण करेंगे?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "a multilingual embedding model",
+   "expected_pages": [
+    8
+   ],
+   "keywords": [
+    "multilingual",
+    "बहुभाषी"
+   ]
+  },
+  {
+   "id": "xe01",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "How many rain gauges were installed in Rampur?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "पाँच",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "पाँच",
+    "5",
+    "five"
+   ]
+  },
+  {
+   "id": "xe02",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "In which year was the data collected?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "2024",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "2024"
+   ]
+  },
+  {
+   "id": "xe03",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "For how many months was the data collected?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "तीन महीने",
+   "expected_pages": [
+    1
+   ],
+   "keywords": [
+    "तीन",
+    "3",
+    "three"
+   ]
+  },
+  {
+   "id": "xe04",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "In which month was the rainfall highest?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "जुलाई",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "जुलाई",
+    "july"
+   ]
+  },
+  {
+   "id": "xe05",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "How much rainfall was recorded in August?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "210 मिलीमीटर",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "210"
+   ]
+  },
+  {
+   "id": "xe06",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "How many millimetres of rain fell in September?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "95 मिलीमीटर",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "95"
+   ]
+  },
+  {
+   "id": "xe07",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "What was the highest rainfall in a single day?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "85 मिलीमीटर",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "85"
+   ]
+  },
+  {
+   "id": "xe08",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "Who recorded the data?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "श्री मोहन लाल",
+   "expected_pages": [
+    2
+   ],
+   "keywords": [
+    "मोहन लाल",
+    "मोहन",
+    "mohan"
+   ]
+  },
+  {
+   "id": "xe09",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "When were farmers advised to sow paddy?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "जुलाई के पहले सप्ताह में",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "पहले सप्ताह",
+    "जुलाई",
+    "july",
+    "first week"
+   ]
+  },
+  {
+   "id": "xe10",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "How many rain gauges are planned for next year?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": true,
+   "expected_answer": "सात",
+   "expected_pages": [
+    3
+   ],
+   "keywords": [
+    "सात",
+    "7",
+    "seven"
+   ]
+  },
+  {
+   "id": "xh15",
+   "doc": "data/sample_text_en.pdf",
+   "question": "फ्रांस की राजधानी क्या है?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "xh16",
+   "doc": "data/sample_text_en.pdf",
+   "question": "खट्टी ब्रेड कैसे बनाई जाती है?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "xh17",
+   "doc": "data/sample_text_en.pdf",
+   "question": "सबसे तेज़ दौड़ने वाला जानवर कौन सा है?",
+   "language": "hi_to_en",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "xe11",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "What is the capital of France?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "xe12",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "How do I bake sourdough bread?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  },
+  {
+   "id": "xe13",
+   "doc": "data/sample_text_hi.pdf",
+   "question": "Which animal runs the fastest?",
+   "language": "en_to_hi",
+   "case_type": "text",
+   "answerable": false,
+   "unanswerable_kind": "off_topic",
+   "expected_answer": null,
+   "expected_pages": [],
+   "keywords": []
+  }
+ ]
+}

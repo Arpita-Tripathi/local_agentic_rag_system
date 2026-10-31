@@ -10,13 +10,20 @@ Phases 0 to 4 are implemented for both members. 53 checklist items below are tic
 **Still open, and why:**
 - `eval/baseline_notebook.json` is an empty template. It needs the original notebook run in Colab.
 - Docling is not installed, so it is neither tested for real nor benchmarked against `pypdf`.
-- Answer-level metrics (answer support, citation accuracy, unsupported claims) need `python -m eval.run_eval
-  --answers local`, and the local Gemma model has not been downloaded or run.
 - Tesseract is not installed on the development machine, so OCR is tested with a fake and the 7 scanned-page
   questions were not run.
 - A person must read the expected answers in `eval/questions.json`, and someone must run the setup on a fresh machine.
 
+**Now measured:** the local Gemma model runs on the development laptop, and answer-level metrics exist for both
+sample sets (README: 95.1% answer support, 97.6% citation accuracy, 0 unanswerable questions answered on the main
+set). They are small invented sets, and the cross-lingual answers were checked by one reader.
+
 Measured results and how the defaults were chosen are in `README.md` and `eval/results/`.
+
+**Added beyond the plan** (all in `README.md`, "What makes it different"): cross-lingual answering (Hindi question,
+English PDF, and the reverse; 30-question set in `eval/questions_crosslingual.json`), evidence-backed passage
+translation with a number check, an answer-support check (numbers and names must appear in the cited passages),
+and per-page extraction quality with legacy-Hindi-font detection. Translation quality itself is not measured.
 
 ## 1. Goal
 
@@ -68,6 +75,11 @@ AI for PDFs/
     runlog.py          # one JSON line per question (trace, retries, latency); purged with its document
     summaries.py       # on-demand, cached table summaries ("Explain this table")
     textsafe.py        # escape untrusted text (PDF content, model output) before it is shown
+    lang.py            # Hindi / English detection; the answer is written in the question's language
+    support.py         # does the answer (or translation) keep the source's numbers and names?
+    translate.py       # on-demand, cached Hindi <-> English translation of a cited passage
+    ui_text.py         # wording of the trust notices shown in the UI
+    ingest/quality.py  # per-page text-quality score; legacy Hindi fonts (Kruti Dev etc.)
     ingest/
       validate.py      # type, size, page bounds, encryption
       extract.py       # pypdf page-wise text; detects image-only pages
@@ -203,7 +215,7 @@ Member B (lead)
   - text, table and OCR cases.
   - Each has the expected answer, the expected page and whether it is answerable.
 - [ ] Both members check the expected answers by hand against the PDF. The metrics are only as good as this ground truth. **Still open (human):** `python -m eval.run_eval --check` proves each expected page holds its evidence; a person must still read the answers.
-- [x] `run_eval.py` reports Recall@k, citation accuracy, answer support, abstention rate and latency, split by language and case type. *(answer support, citation accuracy and unsupported claims need `--answers local`, which has not been run: the local model is not installed)*
+- [x] `run_eval.py` reports Recall@k, citation accuracy, answer support, abstention rate and latency, split by language and case type. *(answer support, citation accuracy and unsupported claims measured with local Gemma; see README)*
 - [x] Compare `all-MiniLM-L6-v2` (current) with `paraphrase-multilingual-MiniLM-L12-v2`. Optionally try BGE-M3 and a local reranker. Keep the simplest option that meets the targets. *(multilingual wins and is now the default; BGE-M3 and a reranker were not tried)*
 - [x] Keep Ragas optional. Use deterministic checks first, because LLM-judge metrics may need a model or API. *(not used)*
 
@@ -238,7 +250,7 @@ Tick every item before calling it demo-ready.
 - [ ] A fresh environment installs pinned dependencies and runs the complete workflow. *(not run on a fresh machine)*
 - [x] Text, scanned, table, corrupt and empty-page PDFs each have a test.
 - [x] Every shown citation maps to a retrieved chunk and a real source page.
-- [ ] Unanswerable questions abstain instead of inventing facts. *(retrieval abstains on 100% of off-topic questions; near-miss questions rely on the model and are not measured)*
+- [x] Unanswerable questions abstain instead of inventing facts. *(local Gemma refused 15 of 15 unanswerable questions on the main set, including 10 near-miss ones, and 6 of 6 in the cross-lingual set; small sample)*
 - [x] Hindi, English and mixed-language retrieval are benchmarked separately. *(retrieval only)*
 - [x] Local mode never makes an unannounced cloud request.
 - [x] Cloud keys are not in source files or browser JavaScript. Usage and errors are visible.

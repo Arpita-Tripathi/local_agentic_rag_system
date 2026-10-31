@@ -122,7 +122,8 @@ def test_save_upload_writes_private_temp_file_and_checks_size():
 
 def test_blank_page_is_flagged_image_only(tmp_path):
     pages = extract_pages(_blank_pdf(tmp_path / "b.pdf"))
-    assert pages == [{"page": 1, "text": "", "image_only": True, "garbled": False}]
+    assert pages[0]["text"] == "" and pages[0]["image_only"] is True and pages[0]["garbled"] is False
+    assert pages[0]["quality"]["level"] == "none"
 
 
 def test_extract_reads_real_text(tmp_path):

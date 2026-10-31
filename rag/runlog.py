@@ -30,6 +30,8 @@ def log_run(question: str, result: Dict, doc_hash: str = "", cache_dir: str = CO
         "provider": result["provider"],
         "citations": [c["id"] for c in result["citations"]],
         "trace": result["trace"],
+        "support": (result.get("support") or {}).get("level"),
+        "cross_lingual": result.get("cross_lingual", False),
     }
     try:
         os.makedirs(cache_dir, exist_ok=True)

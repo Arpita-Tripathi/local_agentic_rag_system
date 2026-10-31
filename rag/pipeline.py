@@ -6,7 +6,9 @@ from typing import Callable, Dict, List, Optional
 from rag.answer import NOT_FOUND, answer
 from rag.citations import resolve
 from rag.config import CONFIG
+from rag.lang import detect_language, is_cross_lingual
 from rag.providers import Generate
+from rag.support import check_support
 
 log = logging.getLogger(__name__)
 
@@ -36,7 +38,7 @@ def ask(
     min_score: float = CONFIG.score_threshold,
 ) -> Dict:
     """Return {"answer", "citations", "found", "reason", "retries", "latency_s", "chunks", "trace",
-    "provider"}.
+    "provider", "support", "question_lang", "cross_lingual"}.
 
     "chunks" is what retrieval returned (the newest non-empty attempt), so the UI can show the evidence
     even when the answer is "not found". "reason" is one of ok / low_score / not_found / no_valid_citation.
@@ -67,9 +69,14 @@ def ask(
                     step["outcome"] = "ok"
                     trace.append(step)
                     log.info("ask %s", step)
+                    by_id = {c["id"]: c["text"] for c in kept}
+                    cited_texts = [by_id[c["id"]] for c in citations]
+                    support = check_support(result["answer"], cited_texts, question)
                     return {"answer": result["answer"], "citations": citations, "found": True, "reason": "ok",
                             "retries": attempt, "latency_s": time.time() - start, "chunks": kept,
-                            "trace": trace, "provider": provider}
+                            "trace": trace, "provider": provider, "support": support,
+                            "question_lang": detect_language(question),
+                            "cross_lingual": is_cross_lingual(question, cited_texts)}
                 reason = "no_valid_citation"
 
         step["outcome"] = reason
@@ -82,7 +89,8 @@ def ask(
 
     return {"answer": NOT_FOUND, "citations": [], "found": False, "reason": reason,
             "retries": max_retries, "latency_s": time.time() - start, "chunks": shown,
-            "trace": trace, "provider": provider}
+            "trace": trace, "provider": provider, "support": None,
+            "question_lang": detect_language(question), "cross_lingual": False}
 
 
 def describe_reason(reason: str) -> Optional[str]:

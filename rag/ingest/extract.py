@@ -7,6 +7,7 @@ from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
 from rag.config import CONFIG
+from rag.ingest.quality import assess_page, page_fonts
 from rag.ingest.validate import PDFValidationError
 
 log = logging.getLogger(__name__)
@@ -33,10 +34,11 @@ def looks_garbled(text: str, threshold: float = 0.1) -> bool:
 
 
 def extract_pages(path: str, min_chars: int = CONFIG.min_page_chars) -> List[Dict]:
-    """Return [{"page": 1-based, "text": str, "image_only": bool, "garbled": bool}, ...].
+    """Return [{"page": 1-based, "text": str, "image_only": bool, "garbled": bool, "quality": {...}}, ...].
 
     "image_only" means "no usable text": the page is empty, nearly empty, or garbled. Such pages
-    need OCR. Garbled text is discarded rather than indexed.
+    need OCR. Garbled text, including text in legacy Hindi fonts (Kruti Dev and similar), is discarded
+    rather than indexed. "quality" is rag.ingest.quality.assess_page for the page.
     """
     try:
         reader = PdfReader(path)
@@ -51,10 +53,13 @@ def extract_pages(path: str, min_chars: int = CONFIG.min_page_chars) -> List[Dic
         except Exception as e:  # one bad page must not kill the whole document
             log.warning("Could not extract text from page %d: %s", i, e)
             text = ""
-        garbled = looks_garbled(text)
+        quality = assess_page(text, page_fonts(page))
+        garbled = looks_garbled(text) or quality["legacy_font"]
         if garbled:
-            log.warning("Page %d text looks garbled; it will need OCR.", i)
+            log.warning("Page %d text looks garbled (%s); it will need OCR.", i,
+                        "; ".join(quality["reasons"]) or "unreadable symbols")
             text = ""
         image_only = garbled or len(text) < min_chars
-        pages.append({"page": i, "text": text, "image_only": image_only, "garbled": garbled})
+        pages.append({"page": i, "text": text, "image_only": image_only, "garbled": garbled,
+                      "quality": quality})
     return pages

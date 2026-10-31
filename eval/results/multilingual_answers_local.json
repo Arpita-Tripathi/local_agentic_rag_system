@@ -1,0 +1,3200 @@
+{
+ "meta": {
+  "date": "2026-10-31",
+  "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
+  "mode": "per document",
+  "answers": "model run",
+  "top_k": 5,
+  "score_threshold": 0.2,
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "parser": "pypdf@6.21.4",
+  "ocr_available": false,
+  "documents": [
+   "data/sample_tables.pdf",
+   "data/sample_text_en.pdf",
+   "data/sample_text_hi.pdf"
+  ],
+  "skipped_documents": {
+   "data/sample_scanned.pdf": "No text could be extracted from this PDF. Pages 1, 2 have no readable text; OCR is turned off."
+  },
+  "n_questions": 63,
+  "n_run": 56,
+  "index_build_s": 18.19,
+  "hardware": {
+   "platform": "Windows-11-10.0.26300-SP0",
+   "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+   "cpus": 18,
+   "python": "3.12.10"
+  }
+ },
+ "overall": {
+  "n_answerable": 41,
+  "n_unanswerable": 15,
+  "recall@1": 0.9512,
+  "recall@3": 1.0,
+  "recall@5": 1.0,
+  "mrr@5": 0.9756,
+  "recall@5_kept": 0.9756,
+  "abstain_retrieval": 0.3333,
+  "abstain_off_topic": 1.0,
+  "abstain_near_miss": 0.0,
+  "top_score_answerable_median": 0.546,
+  "top_score_unanswerable_max": 0.637,
+  "search_ms_median": 369.95,
+  "search_ms_p95": 675.0,
+  "answer_found": 1.0,
+  "answer_supported": 0.9512,
+  "citation_accuracy": 0.9756,
+  "unsupported_claims": 0,
+  "abstain_answer": 1.0,
+  "answer_s_median": 4.13,
+  "answer_s_p95": 12.43
+ },
+ "by_language": {
+  "en": {
+   "n_answerable": 22,
+   "n_unanswerable": 9,
+   "recall@1": 1.0,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 1.0,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.3333,
+   "abstain_off_topic": 1.0,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.546,
+   "top_score_unanswerable_max": 0.538,
+   "search_ms_median": 339.5,
+   "search_ms_p95": 894.7,
+   "answer_found": 1.0,
+   "answer_supported": 0.9545,
+   "citation_accuracy": 1.0,
+   "unsupported_claims": 0,
+   "abstain_answer": 1.0,
+   "answer_s_median": 4.35,
+   "answer_s_p95": 12.43
+  },
+  "hi": {
+   "n_answerable": 10,
+   "n_unanswerable": 4,
+   "recall@1": 0.9,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.95,
+   "recall@5_kept": 0.9,
+   "abstain_retrieval": 0.5,
+   "abstain_off_topic": 1.0,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.631,
+   "top_score_unanswerable_max": 0.637,
+   "search_ms_median": 439.9,
+   "search_ms_p95": 615.0,
+   "answer_found": 1.0,
+   "answer_supported": 0.9,
+   "citation_accuracy": 0.9,
+   "unsupported_claims": 0,
+   "abstain_answer": 1.0,
+   "answer_s_median": 3.93,
+   "answer_s_p95": 9.17
+  },
+  "hinglish": {
+   "n_answerable": 5,
+   "n_unanswerable": 1,
+   "recall@1": 1.0,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 1.0,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.0,
+   "abstain_off_topic": null,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.313,
+   "top_score_unanswerable_max": 0.299,
+   "search_ms_median": 413.05,
+   "search_ms_p95": 433.7,
+   "answer_found": 1.0,
+   "answer_supported": 1.0,
+   "citation_accuracy": 1.0,
+   "unsupported_claims": 0,
+   "abstain_answer": 1.0,
+   "answer_s_median": 4.685,
+   "answer_s_p95": 12.7
+  },
+  "mixed": {
+   "n_answerable": 4,
+   "n_unanswerable": 1,
+   "recall@1": 0.75,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.875,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.0,
+   "abstain_off_topic": null,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.6,
+   "top_score_unanswerable_max": 0.394,
+   "search_ms_median": 404.3,
+   "search_ms_p95": 491.7,
+   "answer_found": 1.0,
+   "answer_supported": 1.0,
+   "citation_accuracy": 1.0,
+   "unsupported_claims": 0,
+   "abstain_answer": 1.0,
+   "answer_s_median": 3.69,
+   "answer_s_p95": 8.01
+  }
+ },
+ "by_case_type": {
+  "table": {
+   "n_answerable": 6,
+   "n_unanswerable": 2,
+   "recall@1": 1.0,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 1.0,
+   "recall@5_kept": 1.0,
+   "abstain_retrieval": 0.0,
+   "abstain_off_topic": null,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.57,
+   "top_score_unanswerable_max": 0.297,
+   "search_ms_median": 449.9,
+   "search_ms_p95": 675.0,
+   "answer_found": 1.0,
+   "answer_supported": 0.8333,
+   "citation_accuracy": 1.0,
+   "unsupported_claims": 0,
+   "abstain_answer": 1.0,
+   "answer_s_median": 2.66,
+   "answer_s_p95": 8.82
+  },
+  "text": {
+   "n_answerable": 35,
+   "n_unanswerable": 13,
+   "recall@1": 0.9429,
+   "recall@3": 1.0,
+   "recall@5": 1.0,
+   "mrr@5": 0.9714,
+   "recall@5_kept": 0.9714,
+   "abstain_retrieval": 0.3846,
+   "abstain_off_topic": 1.0,
+   "abstain_near_miss": 0.0,
+   "top_score_answerable_median": 0.537,
+   "top_score_unanswerable_max": 0.637,
+   "search_ms_median": 369.95,
+   "search_ms_p95": 642.0,
+   "answer_found": 1.0,
+   "answer_supported": 0.9714,
+   "citation_accuracy": 0.9714,
+   "unsupported_claims": 0,
+   "abstain_answer": 1.0,
+   "answer_s_median": 4.23,
+   "answer_s_p95": 12.43
+  }
+ },
+ "weak_cases": [
+  {
+   "id": "hi08",
+   "language": "hi",
+   "case_type": "text",
+   "question": "आँकड़े किसने दर्ज किए?",
+   "why": "gold page dropped by the score threshold (top score 0.373)"
+  },
+  {
+   "id": "mx02",
+   "language": "mixed",
+   "case_type": "text",
+   "question": "monsoon data किसने record किया?",
+   "why": "gold page ranked 2, not 1"
+  },
+  {
+   "id": "tb05",
+   "language": "en",
+   "case_type": "table",
+   "question": "How many table PDF questions were there?",
+   "why": "answer does not contain the expected value"
+  }
+ ],
+ "rows": [
+  {
+   "id": "en01",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Which lab ran the study?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.573
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.398
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.265
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.291
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.32
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.573,
+   "latency_ms": 115.7,
+   "answer": {
+    "found": true,
+    "text": "The study was run by the Riverbend Data Lab.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.19,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en02",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "When was the study run?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.546
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.483
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.372
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.145
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.298
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.546,
+   "latency_ms": 339.5,
+   "answer": {
+    "found": true,
+    "text": "The study was run in March 2025.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 5.91,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en03",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How much memory did the laptop have?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.536
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.299
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.242
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.439
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.204
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.536,
+   "latency_ms": 273.8,
+   "answer": {
+    "found": true,
+    "text": "16 GB of memory",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.71,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en04",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What passage size, in characters, was used?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.53
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.321
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.323
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.304
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.28
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.53,
+   "latency_ms": 186.9,
+   "answer": {
+    "found": true,
+    "text": "1000 characters",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.65,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en05",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many dimensions do the MiniLM vectors have?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.504
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.345
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.084
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.285
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.091
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.504,
+   "latency_ms": 355.8,
+   "answer": {
+    "found": true,
+    "text": "384 dimensions",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.11,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en06",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What constant was used in reciprocal rank fusion?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.488
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.141
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.26
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.123
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.111
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.488,
+   "latency_ms": 268.6,
+   "answer": {
+    "found": true,
+    "text": "A constant of 60 was used for merging the two rankings with reciprocal rank fusion.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.41,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en07",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What recall did hybrid search reach at five passages?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.661
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.494
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.499
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.32
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.308
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.661,
+   "latency_ms": 196.7,
+   "answer": {
+    "found": true,
+    "text": "Hybrid search reached a recall of 91 percent at five passages.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 5.74,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      3
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en08",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the median answer time?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.455
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.306
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.276
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.381
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.298
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.455,
+   "latency_ms": 354.1,
+   "answer": {
+    "found": true,
+    "text": "The median answer time was 4.2 seconds.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 5.25,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      3
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en09",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many of the failures were caused by scanned pages?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.537
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.497
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.541
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.444
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.404
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.537,
+   "latency_ms": 521.6,
+   "answer": {
+    "found": true,
+    "text": "14 of the 31 failures were caused by scanned pages.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 5.79,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      3
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en10",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many questions do the authors recommend for a repeat of the study?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.581
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.54
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.626
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.517
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.33
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.581,
+   "latency_ms": 331.3,
+   "answer": {
+    "found": true,
+    "text": "The authors recommend repeating the study with at least 500 questions.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 5.4,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      4
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en11",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many files did the team collect?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.615
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.446
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.322
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.208
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.315
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.615,
+   "latency_ms": 642.0,
+   "answer": {
+    "found": true,
+    "text": "The team collected 48 files.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.98,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      5
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en12",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Which files were excluded from the collection?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.533
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.375
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.266
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.362
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.252
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.533,
+   "latency_ms": 920.4,
+   "answer": {
+    "found": true,
+    "text": "Files larger than 50 megabytes were excluded.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.27,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      5
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en13",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many of the questions had no answer in the documents?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.71
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.519
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.551
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.565
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.47
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.71,
+   "latency_ms": 582.0,
+   "answer": {
+    "found": true,
+    "text": "Thirty questions did not have an answer in the documents.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.35,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      6
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en14",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many tokens of output did the prompt allow?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.435
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.385
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.399
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.376
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.347
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.435,
+   "latency_ms": 318.3,
+   "answer": {
+    "found": true,
+    "text": "The prompt allowed at most 512 tokens of output.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 5.7,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      7
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en15",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "How many unanswerable questions did the system refuse to answer?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.572
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.558
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.527
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.479
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.449
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.572,
+   "latency_ms": 275.2,
+   "answer": {
+    "found": true,
+    "text": "27 of the 30 unanswerable questions.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.3,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      8
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en16",
+   "language": "en",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "What will the authors test next?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.43
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.489
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.376
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.379
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.305
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.43,
+   "latency_ms": 414.8,
+   "answer": {
+    "found": true,
+    "text": "The authors plan to test a multilingual embedding model next.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.43,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      8
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "en17",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "What is the capital of France?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.022
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.044
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.037
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.0,
+   "latency_ms": 894.7,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "low_score",
+    "retries": 1,
+    "latency_s": 3.35,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "en18",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "How do I bake sourdough bread?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.026
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.0
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.0
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.026,
+   "latency_ms": 64.3,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "low_score",
+    "retries": 1,
+    "latency_s": 9.46,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "en19",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "Who won the football world cup?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.183
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.178
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.079
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.039
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.11
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.183,
+   "latency_ms": 31.6,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "low_score",
+    "retries": 1,
+    "latency_s": 3.78,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "en20",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "How much funding did the study receive?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.527
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.43
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.306
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.526
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.189
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.527,
+   "latency_ms": 117.5,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 12.43,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "en21",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "Which programming language was the system written in?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.369
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.189
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.246
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.197
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.246
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.369,
+   "latency_ms": 282.5,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 12.03,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "en22",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "What was the price of the laptop?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.376
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.179
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.151
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.214
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.08
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.376,
+   "latency_ms": 558.8,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 10.37,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "en23",
+   "language": "en",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "How many people work in the Riverbend Data Lab?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.538
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.412
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.344
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.266
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.288
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.538,
+   "latency_ms": 424.5,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 13.56,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "hg01",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Study ke liye kitne sawal likhe gaye the?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.313
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.254
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.263
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.213
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.131
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.313,
+   "latency_ms": 411.3,
+   "answer": {
+    "found": true,
+    "text": "120 questions were written for the study.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.74,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      1
+     ],
+     [
+      "data/sample_text_en.pdf",
+      6
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hg02",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Hybrid search ka recall kitna tha?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.483
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.402
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.309
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.34
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.228
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.483,
+   "latency_ms": 415.8,
+   "answer": {
+    "found": true,
+    "text": "Hybrid search reached a recall of 91 percent at five passages.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 5.76,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      3
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hg03",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Passage ki size kitni thi?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.236
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.168
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.143
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.139
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.136
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.236,
+   "latency_ms": 433.7,
+   "answer": {
+    "found": true,
+    "text": "1000 characters",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 2.7,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hg04",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Model ko kitne tokens tak output dene ki ijazat thi?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.457
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.35
+    ],
+    [
+     "data/sample_text_en.pdf",
+     8,
+     0.3
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.273
+    ],
+    [
+     "data/sample_text_en.pdf",
+     3,
+     0.189
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.457,
+   "latency_ms": 414.8,
+   "answer": {
+    "found": true,
+    "text": "The prompt allowed at most 512 tokens of output.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.63,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      7
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hg05",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Kitni files collect ki gayi thi?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.278
+    ],
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.143
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.143
+    ],
+    [
+     "data/sample_text_en.pdf",
+     2,
+     0.08
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.079
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.278,
+   "latency_ms": 327.1,
+   "answer": {
+    "found": true,
+    "text": "48 files were collected.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.24,
+    "cited": [
+     [
+      "data/sample_text_en.pdf",
+      5
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hg06",
+   "language": "hinglish",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "Is study ka budget kitna tha?",
+   "top": [
+    [
+     "data/sample_text_en.pdf",
+     4,
+     0.299
+    ],
+    [
+     "data/sample_text_en.pdf",
+     1,
+     0.292
+    ],
+    [
+     "data/sample_text_en.pdf",
+     5,
+     0.277
+    ],
+    [
+     "data/sample_text_en.pdf",
+     7,
+     0.215
+    ],
+    [
+     "data/sample_text_en.pdf",
+     6,
+     0.212
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.299,
+   "latency_ms": 373.8,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 12.7,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "hi01",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "रामपुर में कितने वर्षामापी यंत्र लगाए गए थे?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.69
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.425
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.398
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.69,
+   "latency_ms": 585.4,
+   "answer": {
+    "found": true,
+    "text": "गाँव में कुल पाँच वर्षामापी यंत्र लगाए गए थे।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.98,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi02",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "आँकड़े किस वर्ष एकत्र किए गए?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.442
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.203
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.07
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.442,
+   "latency_ms": 282.0,
+   "answer": {
+    "found": true,
+    "text": "आँकड़े वर्ष 2024 में एकत्र किए गए।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.12,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi03",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "आँकड़े कितने महीनों तक एकत्र किए गए?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.512
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.306
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.125
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.512,
+   "latency_ms": 447.7,
+   "answer": {
+    "found": true,
+    "text": "आँकड़े वर्ष 2024 में तीन महीनों तक एकत्र किए गए।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.29,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi04",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "सबसे अधिक वर्षा किस महीने में हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.695
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.52
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.285
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.695,
+   "latency_ms": 446.2,
+   "answer": {
+    "found": true,
+    "text": "जुलाई में सबसे अधिक वर्षा हुई, कुल 320 मिलीमीटर।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.91,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi05",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "अगस्त में कितनी वर्षा दर्ज की गई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.766
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.54
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.349
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.766,
+   "latency_ms": 460.7,
+   "answer": {
+    "found": true,
+    "text": "अगस्त में 210 मिलीमीटर वर्षा दर्ज की गई।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.89,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi06",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "सितंबर में कितने मिलीमीटर वर्षा हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.728
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.438
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.158
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.728,
+   "latency_ms": 309.5,
+   "answer": {
+    "found": true,
+    "text": "सितंबर में केवल 95 मिलीमीटर वर्षा हुई।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.55,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi07",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "एक ही दिन में सबसे अधिक वर्षा कितनी थी?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.711
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.525
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.279
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.711,
+   "latency_ms": 615.0,
+   "answer": {
+    "found": true,
+    "text": "एक ही दिन में सबसे अधिक वर्षा 85 मिलीमीटर थी।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.95,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi08",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "आँकड़े किसने दर्ज किए?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.373
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.166
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.037
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.373,
+   "latency_ms": 576.3,
+   "answer": {
+    "found": true,
+    "text": "रिपोर्ट में आँकड़े दर्ज करने वाले का उल्लेख नहीं है।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.36,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      1
+     ]
+    ],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "hi09",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "किसानों को धान की बुवाई कब करने की सलाह दी गई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.573
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.175
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.327
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.573,
+   "latency_ms": 520.7,
+   "answer": {
+    "found": true,
+    "text": "किसानों को जुलाई के पहले सप्ताह में धान की बुवाई करने की सलाह दी गई।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 4.14,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      3
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi10",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "अगले वर्ष कितने वर्षामापी यंत्र लगाने की योजना है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.521
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.514
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.315
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.521,
+   "latency_ms": 325.4,
+   "answer": {
+    "found": true,
+    "text": "अगले वर्ष सात वर्षामापी यंत्र लगाने की योजना है।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.71,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      3
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "hi11",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "भारत की राजधानी क्या है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.162
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.151
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.027
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.162,
+   "latency_ms": 433.6,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "low_score",
+    "retries": 1,
+    "latency_s": 3.74,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "hi12",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "off_topic",
+   "question": "सबसे तेज़ दौड़ने वाला जानवर कौन सा है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.148
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.13
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.086
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": true,
+   "top_score": 0.148,
+   "latency_ms": 55.1,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "low_score",
+    "retries": 1,
+    "latency_s": 3.39,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "hi13",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "रामपुर की जनसंख्या कितनी है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.557
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.282
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.234
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.557,
+   "latency_ms": 52.3,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 9.17,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "hi14",
+   "language": "hi",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "रामपुर में अक्टूबर में कितनी वर्षा हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.637
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.62
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.261
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.637,
+   "latency_ms": 276.5,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 8.4,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "mx01",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Rampur में September में कितनी rainfall हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.634
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.562
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.274
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.634,
+   "latency_ms": 283.4,
+   "answer": {
+    "found": true,
+    "text": "95 millimeters of rainfall occurred in September.",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.6,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "mx02",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "monsoon data किसने record किया?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.557
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.469
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.217
+    ]
+   ],
+   "gold_rank": 2,
+   "hit": {
+    "1": false,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.557,
+   "latency_ms": 404.3,
+   "answer": {
+    "found": true,
+    "text": "श्री मोहन लाल ने आँकड़े दर्ज किए।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.46,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "mx03",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "सबसे ज़्यादा rain किस month में हुई?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.693
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.494
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.265
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.693,
+   "latency_ms": 366.1,
+   "answer": {
+    "found": true,
+    "text": "जुलाई में सबसे अधिक वर्षा हुई, कुल 320 मिलीमीटर।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.86,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "mx04",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": true,
+   "kind": null,
+   "question": "Rampur में rain gauge कितने लगाए गए थे?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.566
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.219
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.553
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.566,
+   "latency_ms": 440.8,
+   "answer": {
+    "found": true,
+    "text": "गाँव में कुल पाँच वर्षामापी यंत्र लगाए गए थे।",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.69,
+    "cited": [
+     [
+      "data/sample_text_hi.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "mx05",
+   "language": "mixed",
+   "case_type": "text",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "Rampur का population कितना है?",
+   "top": [
+    [
+     "data/sample_text_hi.pdf",
+     1,
+     0.394
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     2,
+     0.202
+    ],
+    [
+     "data/sample_text_hi.pdf",
+     3,
+     0.143
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.394,
+   "latency_ms": 491.7,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 8.01,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "tb01",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the recall at 5 for hybrid retrieval in the table?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.608
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.244
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.608,
+   "latency_ms": 90.8,
+   "answer": {
+    "found": true,
+    "text": "88",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 3.34,
+    "cited": [
+     [
+      "data/sample_tables.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "tb02",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the median time in seconds for keyword only retrieval?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.648
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.033
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.648,
+   "latency_ms": 613.3,
+   "answer": {
+    "found": true,
+    "text": "0.9 seconds",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 2.68,
+    "cited": [
+     [
+      "data/sample_tables.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "tb03",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "Which method had the lowest recall at 5?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.546
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.148
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.546,
+   "latency_ms": 202.3,
+   "answer": {
+    "found": true,
+    "text": "Keyword only",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 2.44,
+    "cited": [
+     [
+      "data/sample_tables.pdf",
+      1
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "tb04",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "How many failures were there for scanned PDFs?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.553
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.267
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.553,
+   "latency_ms": 343.9,
+   "answer": {
+    "found": true,
+    "text": "19",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 2.57,
+    "cited": [
+     [
+      "data/sample_tables.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "tb05",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "How many table PDF questions were there?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.587
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.27
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.587,
+   "latency_ms": 555.9,
+   "answer": {
+    "found": true,
+    "text": "7",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 2.45,
+    "cited": [
+     [
+      "data/sample_tables.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": false
+   }
+  },
+  {
+   "id": "tb06",
+   "language": "en",
+   "case_type": "table",
+   "answerable": true,
+   "kind": null,
+   "question": "What was the total number of failures?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.285
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.236
+    ]
+   ],
+   "gold_rank": 1,
+   "hit": {
+    "1": true,
+    "3": true,
+    "5": true
+   },
+   "kept_gold": true,
+   "abstained": false,
+   "top_score": 0.285,
+   "latency_ms": 675.0,
+   "answer": {
+    "found": true,
+    "text": "38",
+    "reason": "ok",
+    "retries": 0,
+    "latency_s": 2.64,
+    "cited": [
+     [
+      "data/sample_tables.pdf",
+      2
+     ]
+    ],
+    "citation_ok": true,
+    "supported": true
+   }
+  },
+  {
+   "id": "tb07",
+   "language": "en",
+   "case_type": "table",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "What was the F1 score of the hybrid method?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.297
+    ],
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.074
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.297,
+   "latency_ms": 592.3,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 8.82,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  },
+  {
+   "id": "tb08",
+   "language": "en",
+   "case_type": "table",
+   "answerable": false,
+   "kind": "near_miss",
+   "question": "How many failures were there for audio files?",
+   "top": [
+    [
+     "data/sample_tables.pdf",
+     2,
+     0.289
+    ],
+    [
+     "data/sample_tables.pdf",
+     1,
+     0.161
+    ]
+   ],
+   "gold_rank": null,
+   "hit": {
+    "1": false,
+    "3": false,
+    "5": false
+   },
+   "kept_gold": false,
+   "abstained": false,
+   "top_score": 0.289,
+   "latency_ms": 214.7,
+   "answer": {
+    "found": false,
+    "text": "I could not find this in the PDF.",
+    "reason": "not_found",
+    "retries": 1,
+    "latency_s": 8.56,
+    "cited": [],
+    "citation_ok": false,
+    "supported": false
+   }
+  }
+ ]
+}
