@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" role="img" aria-labelledby="ttl desc">
+<title id="ttl">Local-first PDF question answering: workflow</title>
+<desc id="desc">Index time: validate, extract text, OCR or layout fallback, chunk, embed and index. Question time: hybrid search, score threshold, local answer model, citation validation, answer with page links; otherwise "not found" with one query-rewrite retry.</desc>
+<style>.t{font:600 14px Segoe UI,Arial,sans-serif;fill:#0f172a}.s{font:12px Segoe UI,Arial,sans-serif;fill:#334155}.l{font:12px Segoe UI,Arial,sans-serif;fill:#475569}.h{font:700 16px Segoe UI,Arial,sans-serif;fill:#0f172a}.m{font:700 20px Segoe UI,Arial,sans-serif;fill:#0f172a}</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+<rect width="1200" height="640" fill="#ffffff"/>
+<text x="40" y="40" class="m">Local-first PDF Q&amp;A: how a question gets its answer</text>
+<text x="40" y="80" class="h">A. When a PDF is uploaded (once per document)</text>
+<rect x="40" y="96" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="135.0" y="120" class="t" text-anchor="middle">1. Upload and check</text>
+<text x="135.0" y="140" class="s" text-anchor="middle">type, size, page count,</text>
+<text x="135.0" y="157" class="s" text-anchor="middle">encryption; private temp file</text>
+<rect x="270" y="96" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="365.0" y="120" class="t" text-anchor="middle">2. Extract text</text>
+<text x="365.0" y="140" class="s" text-anchor="middle">pypdf, page by page;</text>
+<text x="365.0" y="157" class="s" text-anchor="middle">garbled text is discarded</text>
+<rect x="500" y="96" width="190" height="86" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="595.0" y="120" class="t" text-anchor="middle">3. Fallbacks (if needed)</text>
+<text x="595.0" y="140" class="s" text-anchor="middle">scanned page: OCR (Tesseract,</text>
+<text x="595.0" y="157" class="s" text-anchor="middle">Hindi + English); tables: Docling</text>
+<rect x="730" y="96" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="825.0" y="120" class="t" text-anchor="middle">4. Chunk with provenance</text>
+<text x="825.0" y="140" class="s" text-anchor="middle">stable ID, page, heading,</text>
+<text x="825.0" y="157" class="s" text-anchor="middle">parser, type (text/ocr/table)</text>
+<rect x="960" y="96" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1055.0" y="120" class="t" text-anchor="middle">5. Embed and index</text>
+<text x="1055.0" y="140" class="s" text-anchor="middle">multilingual MiniLM + BM25;</text>
+<text x="1055.0" y="157" class="s" text-anchor="middle">rebuilt if settings change</text>
+<path d="M230 139.0 H268" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M460 139.0 H498" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M690 139.0 H728" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M920 139.0 H958" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="40" y="258" class="h">B. When a question is asked (at most one retry)</text>
+<rect x="40" y="276" width="190" height="86" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+<text x="135.0" y="300" class="t" text-anchor="middle">Question</text>
+<text x="135.0" y="320" class="s" text-anchor="middle">English, Hindi, Hinglish</text>
+<text x="135.0" y="337" class="s" text-anchor="middle">or mixed</text>
+<rect x="270" y="276" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="365.0" y="300" class="t" text-anchor="middle">Hybrid search</text>
+<text x="365.0" y="320" class="s" text-anchor="middle">cosine similarity + BM25,</text>
+<text x="365.0" y="337" class="s" text-anchor="middle">fused with RRF, top 5</text>
+<polygon points="495,319.0 595,271.0 695,319.0 595,367.0" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+<text x="595" y="316.0" class="t" text-anchor="middle">Score at least</text>
+<text x="595" y="334.0" class="t" text-anchor="middle">0.20?</text>
+<rect x="730" y="276" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="825.0" y="300" class="t" text-anchor="middle">Answer model</text>
+<text x="825.0" y="320" class="s" text-anchor="middle">Gemma via LiteRT, on this</text>
+<text x="825.0" y="337" class="s" text-anchor="middle">device. Cloud only if you agree</text>
+<rect x="960" y="276" width="190" height="86" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1055.0" y="300" class="t" text-anchor="middle">Check the citations</text>
+<text x="1055.0" y="320" class="s" text-anchor="middle">keep only chunk IDs that were</text>
+<text x="1055.0" y="337" class="s" text-anchor="middle">retrieved; page from metadata</text>
+<path d="M230 319.0 H268" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M460 319.0 H493" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M695 319.0 H728" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="709" y="311.0" class="l" text-anchor="middle">yes</text>
+<path d="M920 319.0 H958" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M1055.0 182 V218 H365 V274" fill="none" stroke="#475569" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#a)"/>
+<text x="1000" y="212" class="l" text-anchor="start">saved index</text>
+<rect x="960" y="440" width="190" height="100" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1055.0" y="464" class="t" text-anchor="middle">Answer with sources</text>
+<text x="1055.0" y="484" class="s" text-anchor="middle">clickable page numbers,</text>
+<text x="1055.0" y="501" class="s" text-anchor="middle">evidence snippet, preview;</text>
+<text x="1055.0" y="518" class="s" text-anchor="middle">model and index shown</text>
+<rect x="500" y="440" width="190" height="100" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+<text x="595.0" y="464" class="t" text-anchor="middle">Not found</text>
+<text x="595.0" y="484" class="s" text-anchor="middle">“I could not find this</text>
+<text x="595.0" y="501" class="s" text-anchor="middle">in the PDF.” (no guess)</text>
+<path d="M1055.0 362 V438" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="1063.0" y="392" class="l" text-anchor="start">valid citation</text>
+<path d="M595 367.0 V438" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="603" y="397.0" class="l" text-anchor="start">no</text>
+<path d="M500 490 H365 V364" fill="none" stroke="#475569" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#a)"/>
+<text x="372" y="484" class="l" text-anchor="start">retry once</text>
+<text x="372" y="500" class="l" text-anchor="start">(rewritten query)</text>
+<path d="M825.0 362 V490 H692" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#a)"/>
+<text x="845" y="508" class="l" text-anchor="middle">model says not found,</text>
+<text x="845" y="524" class="l" text-anchor="middle">or no valid citation</text>
+<rect x="40" y="574" width="16" height="16" rx="3" fill="#dcfce7" stroke="#16a34a"/><text x="62" y="587" class="l">runs on this device</text>
+<rect x="200" y="574" width="16" height="16" rx="3" fill="#fef3c7" stroke="#d97706"/><text x="222" y="587" class="l">optional fallback (installed separately)</text>
+<rect x="470" y="574" width="16" height="16" rx="3" fill="#dbeafe" stroke="#2563eb"/><text x="492" y="587" class="l">decision</text>
+<rect x="580" y="574" width="16" height="16" rx="3" fill="#fee2e2" stroke="#dc2626"/><text x="602" y="587" class="l">no guess: says it is not in the PDF</text>
+<text x="40" y="618" class="l">One document at a time. Local by default; cloud mode sends only retrieved excerpts, only after consent, never as a silent fallback. Measured results: README.</text>
+</svg>

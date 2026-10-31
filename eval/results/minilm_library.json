@@ -5,7 +5,7 @@
   "mode": "library (one index over all PDFs)",
   "answers": "retrieval only",
   "top_k": 5,
-  "score_threshold": 0.15,
+  "score_threshold": 0.2,
   "chunk_size": 1000,
   "chunk_overlap": 150,
   "parser": "pypdf@6.21.4",
@@ -20,11 +20,11 @@
   },
   "n_questions": 63,
   "n_run": 56,
-  "index_build_s": 19.72,
+  "index_build_s": 11.39,
   "hardware": {
-   "platform": "Windows-11-10.0.26200-SP0",
-   "processor": "AMD64 Family 23 Model 160 Stepping 0, AuthenticAMD",
-   "cpus": 8,
+   "platform": "Windows-11-10.0.26300-SP0",
+   "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+   "cpus": 18,
    "python": "3.12.10"
   }
  },
@@ -35,14 +35,14 @@
   "recall@3": 0.9756,
   "recall@5": 1.0,
   "mrr@5": 0.8667,
-  "recall@5_kept": 1.0,
+  "recall@5_kept": 0.9268,
   "abstain_retrieval": 0.2,
   "abstain_off_topic": 0.6,
   "abstain_near_miss": 0.0,
   "top_score_answerable_median": 0.511,
   "top_score_unanswerable_max": 0.658,
-  "search_ms_median": 16.95,
-  "search_ms_p95": 26.6
+  "search_ms_median": 9.35,
+  "search_ms_p95": 13.4
  },
  "by_language": {
   "en": {
@@ -58,8 +58,8 @@
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.486,
    "top_score_unanswerable_max": 0.389,
-   "search_ms_median": 15.8,
-   "search_ms_p95": 26.6
+   "search_ms_median": 8.7,
+   "search_ms_p95": 13.4
   },
   "hi": {
    "n_answerable": 10,
@@ -74,8 +74,8 @@
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.653,
    "top_score_unanswerable_max": 0.658,
-   "search_ms_median": 20.65,
-   "search_ms_p95": 40.5
+   "search_ms_median": 10.4,
+   "search_ms_p95": 12.1
   },
   "hinglish": {
    "n_answerable": 5,
@@ -84,14 +84,14 @@
    "recall@3": 1.0,
    "recall@5": 1.0,
    "mrr@5": 0.8667,
-   "recall@5_kept": 1.0,
+   "recall@5_kept": 0.4,
    "abstain_retrieval": 0.0,
    "abstain_off_topic": null,
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.334,
    "top_score_unanswerable_max": 0.348,
-   "search_ms_median": 16.05,
-   "search_ms_p95": 19.9
+   "search_ms_median": 8.95,
+   "search_ms_p95": 10.4
   },
   "mixed": {
    "n_answerable": 4,
@@ -106,8 +106,8 @@
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.419,
    "top_score_unanswerable_max": 0.461,
-   "search_ms_median": 16.1,
-   "search_ms_p95": 19.0
+   "search_ms_median": 9.4,
+   "search_ms_p95": 13.9
   }
  },
  "by_case_type": {
@@ -124,8 +124,8 @@
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.567,
    "top_score_unanswerable_max": 0.389,
-   "search_ms_median": 15.0,
-   "search_ms_p95": 17.0
+   "search_ms_median": 10.55,
+   "search_ms_p95": 13.8
   },
   "text": {
    "n_answerable": 35,
@@ -134,14 +134,14 @@
    "recall@3": 0.9714,
    "recall@5": 1.0,
    "mrr@5": 0.8438,
-   "recall@5_kept": 1.0,
+   "recall@5_kept": 0.9143,
    "abstain_retrieval": 0.2308,
    "abstain_off_topic": 0.6,
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.504,
    "top_score_unanswerable_max": 0.658,
-   "search_ms_median": 18.2,
-   "search_ms_p95": 26.6
+   "search_ms_median": 9.1,
+   "search_ms_p95": 12.1
   }
  },
  "weak_cases": [
@@ -185,7 +185,21 @@
    "language": "hinglish",
    "case_type": "text",
    "question": "Study ke liye kitne sawal likhe gaye the?",
-   "why": "gold page ranked 3, not 1"
+   "why": "gold page dropped by the score threshold (top score 0.334)"
+  },
+  {
+   "id": "hg03",
+   "language": "hinglish",
+   "case_type": "text",
+   "question": "Passage ki size kitni thi?",
+   "why": "gold page dropped by the score threshold (top score 0.172)"
+  },
+  {
+   "id": "hg04",
+   "language": "hinglish",
+   "case_type": "text",
+   "question": "Model ko kitne tokens tak output dene ki ijazat thi?",
+   "why": "gold page dropped by the score threshold (top score 0.197)"
   },
   {
    "id": "hi10",
@@ -267,7 +281,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.35,
-   "latency_ms": 26.6
+   "latency_ms": 8.5
   },
   {
    "id": "en02",
@@ -312,7 +326,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.397,
-   "latency_ms": 19.6
+   "latency_ms": 5.3
   },
   {
    "id": "en03",
@@ -357,7 +371,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.276,
-   "latency_ms": 24.2
+   "latency_ms": 7.5
   },
   {
    "id": "en04",
@@ -402,7 +416,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.248,
-   "latency_ms": 26.0
+   "latency_ms": 9.0
   },
   {
    "id": "en05",
@@ -447,7 +461,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.3,
-   "latency_ms": 20.5
+   "latency_ms": 8.7
   },
   {
    "id": "en06",
@@ -492,7 +506,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.324,
-   "latency_ms": 22.9
+   "latency_ms": 9.3
   },
   {
    "id": "en07",
@@ -537,7 +551,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.679,
-   "latency_ms": 25.3
+   "latency_ms": 9.5
   },
   {
    "id": "en08",
@@ -582,7 +596,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.359,
-   "latency_ms": 24.1
+   "latency_ms": 8.7
   },
   {
    "id": "en09",
@@ -627,7 +641,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.52,
-   "latency_ms": 24.2
+   "latency_ms": 10.4
   },
   {
    "id": "en10",
@@ -672,7 +686,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.446,
-   "latency_ms": 26.9
+   "latency_ms": 9.4
   },
   {
    "id": "en11",
@@ -717,7 +731,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.623,
-   "latency_ms": 15.4
+   "latency_ms": 7.5
   },
   {
    "id": "en12",
@@ -762,7 +776,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.593,
-   "latency_ms": 17.3
+   "latency_ms": 6.6
   },
   {
    "id": "en13",
@@ -807,7 +821,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.639,
-   "latency_ms": 18.8
+   "latency_ms": 11.6
   },
   {
    "id": "en14",
@@ -852,7 +866,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.518,
-   "latency_ms": 14.4
+   "latency_ms": 8.3
   },
   {
    "id": "en15",
@@ -897,7 +911,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.511,
-   "latency_ms": 15.2
+   "latency_ms": 7.0
   },
   {
    "id": "en16",
@@ -942,7 +956,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.342,
-   "latency_ms": 15.8
+   "latency_ms": 7.0
   },
   {
    "id": "en17",
@@ -987,7 +1001,7 @@
    "kept_gold": false,
    "abstained": true,
    "top_score": 0.051,
-   "latency_ms": 15.6
+   "latency_ms": 6.7
   },
   {
    "id": "en18",
@@ -1032,7 +1046,7 @@
    "kept_gold": false,
    "abstained": true,
    "top_score": 0.1,
-   "latency_ms": 14.0
+   "latency_ms": 6.8
   },
   {
    "id": "en19",
@@ -1077,7 +1091,7 @@
    "kept_gold": false,
    "abstained": true,
    "top_score": 0.095,
-   "latency_ms": 14.5
+   "latency_ms": 7.0
   },
   {
    "id": "en20",
@@ -1122,7 +1136,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.324,
-   "latency_ms": 14.3
+   "latency_ms": 7.7
   },
   {
    "id": "en21",
@@ -1167,7 +1181,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.187,
-   "latency_ms": 14.4
+   "latency_ms": 7.7
   },
   {
    "id": "en22",
@@ -1212,7 +1226,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.22,
-   "latency_ms": 13.9
+   "latency_ms": 8.7
   },
   {
    "id": "en23",
@@ -1257,7 +1271,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.367,
-   "latency_ms": 17.5
+   "latency_ms": 9.5
   },
   {
    "id": "hg01",
@@ -1299,10 +1313,10 @@
     "3": true,
     "5": true
    },
-   "kept_gold": true,
+   "kept_gold": false,
    "abstained": false,
    "top_score": 0.334,
-   "latency_ms": 15.1
+   "latency_ms": 10.4
   },
   {
    "id": "hg02",
@@ -1347,7 +1361,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.475,
-   "latency_ms": 15.9
+   "latency_ms": 8.7
   },
   {
    "id": "hg03",
@@ -1389,10 +1403,10 @@
     "3": true,
     "5": true
    },
-   "kept_gold": true,
+   "kept_gold": false,
    "abstained": false,
    "top_score": 0.172,
-   "latency_ms": 13.7
+   "latency_ms": 7.8
   },
   {
    "id": "hg04",
@@ -1434,10 +1448,10 @@
     "3": true,
     "5": true
    },
-   "kept_gold": true,
+   "kept_gold": false,
    "abstained": false,
    "top_score": 0.197,
-   "latency_ms": 19.9
+   "latency_ms": 10.2
   },
   {
    "id": "hg05",
@@ -1482,7 +1496,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.352,
-   "latency_ms": 16.2
+   "latency_ms": 9.2
   },
   {
    "id": "hg06",
@@ -1527,7 +1541,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.348,
-   "latency_ms": 16.2
+   "latency_ms": 7.9
   },
   {
    "id": "hi01",
@@ -1572,7 +1586,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.778,
-   "latency_ms": 21.3
+   "latency_ms": 11.6
   },
   {
    "id": "hi02",
@@ -1617,7 +1631,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.63,
-   "latency_ms": 20.0
+   "latency_ms": 8.4
   },
   {
    "id": "hi03",
@@ -1662,7 +1676,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.681,
-   "latency_ms": 21.7
+   "latency_ms": 9.5
   },
   {
    "id": "hi04",
@@ -1707,7 +1721,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.632,
-   "latency_ms": 40.5
+   "latency_ms": 8.2
   },
   {
    "id": "hi05",
@@ -1752,7 +1766,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.638,
-   "latency_ms": 21.4
+   "latency_ms": 9.4
   },
   {
    "id": "hi06",
@@ -1797,7 +1811,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.605,
-   "latency_ms": 23.1
+   "latency_ms": 11.0
   },
   {
    "id": "hi07",
@@ -1842,7 +1856,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.681,
-   "latency_ms": 24.4
+   "latency_ms": 11.0
   },
   {
    "id": "hi08",
@@ -1887,7 +1901,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.624,
-   "latency_ms": 16.4
+   "latency_ms": 8.0
   },
   {
    "id": "hi09",
@@ -1932,7 +1946,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.682,
-   "latency_ms": 19.6
+   "latency_ms": 11.2
   },
   {
    "id": "hi10",
@@ -1977,7 +1991,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.669,
-   "latency_ms": 24.2
+   "latency_ms": 12.1
   },
   {
    "id": "hi11",
@@ -2022,7 +2036,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.658,
-   "latency_ms": 19.2
+   "latency_ms": 11.4
   },
   {
    "id": "hi12",
@@ -2067,7 +2081,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.603,
-   "latency_ms": 16.0
+   "latency_ms": 9.8
   },
   {
    "id": "hi13",
@@ -2112,7 +2126,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.653,
-   "latency_ms": 18.8
+   "latency_ms": 9.8
   },
   {
    "id": "hi14",
@@ -2157,7 +2171,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.641,
-   "latency_ms": 17.6
+   "latency_ms": 12.1
   },
   {
    "id": "mx01",
@@ -2202,7 +2216,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.438,
-   "latency_ms": 13.9
+   "latency_ms": 9.4
   },
   {
    "id": "mx02",
@@ -2247,7 +2261,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.258,
-   "latency_ms": 16.1
+   "latency_ms": 9.0
   },
   {
    "id": "mx03",
@@ -2292,7 +2306,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.401,
-   "latency_ms": 15.5
+   "latency_ms": 9.3
   },
   {
    "id": "mx04",
@@ -2337,7 +2351,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.504,
-   "latency_ms": 19.0
+   "latency_ms": 13.9
   },
   {
    "id": "mx05",
@@ -2382,7 +2396,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.461,
-   "latency_ms": 16.9
+   "latency_ms": 11.6
   },
   {
    "id": "tb01",
@@ -2427,7 +2441,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.622,
-   "latency_ms": 14.0
+   "latency_ms": 13.8
   },
   {
    "id": "tb02",
@@ -2472,7 +2486,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.558,
-   "latency_ms": 17.0
+   "latency_ms": 9.6
   },
   {
    "id": "tb03",
@@ -2517,7 +2531,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.46,
-   "latency_ms": 14.7
+   "latency_ms": 9.2
   },
   {
    "id": "tb04",
@@ -2562,7 +2576,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.576,
-   "latency_ms": 13.8
+   "latency_ms": 13.4
   },
   {
    "id": "tb05",
@@ -2607,7 +2621,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.661,
-   "latency_ms": 15.6
+   "latency_ms": 10.3
   },
   {
    "id": "tb06",
@@ -2652,7 +2666,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.413,
-   "latency_ms": 15.8
+   "latency_ms": 10.8
   },
   {
    "id": "tb07",
@@ -2697,7 +2711,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.389,
-   "latency_ms": 14.4
+   "latency_ms": 12.4
   },
   {
    "id": "tb08",
@@ -2742,7 +2756,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.388,
-   "latency_ms": 15.3
+   "latency_ms": 9.7
   }
  ]
 }

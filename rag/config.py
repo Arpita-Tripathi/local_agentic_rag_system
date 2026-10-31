@@ -27,6 +27,19 @@ def _env_mode() -> str:
     return mode
 
 
+def _env_unit_float(name: str, default: float) -> float:
+    raw = os.environ.get(name)
+    if raw is None or not raw.strip():
+        return default
+    try:
+        value = float(raw)
+    except ValueError:
+        raise ValueError(f"{name} must be a number between 0 and 1, got {raw!r}.") from None
+    if not 0.0 <= value <= 1.0:
+        raise ValueError(f"{name} must be between 0 and 1, got {value}.")
+    return value
+
+
 @dataclass(frozen=True)
 class Config:
     # upload limits
@@ -47,8 +60,15 @@ class Config:
 
     # retrieval + answer
     top_k: int = 5
-    # Applied to chunks that carry a "score". Must match the scale of retrieval's score (agree with Member B).
-    score_threshold: float = 0.15
+    # Applied to chunks that carry a "score" (dense cosine similarity, 0..1; see rag/retrieval/search.py).
+    # 0.20 is the best trade-off measured for paraphrase-multilingual-MiniLM-L12-v2 on the sample set, one
+    # PDF at a time (README, "Choosing the score threshold"): it abstains on 5 of 5 off-topic questions and
+    # keeps the gold passage for 40 of 41 answerable ones. 0.15 keeps 41 of 41 but abstains on only 3 of 5
+    # off-topic; 0.30 keeps just 37 of 41. That is only 5 off-topic questions, so treat it as a starting
+    # point and re-tune on real PDFs. It does not suit the English-only all-MiniLM-L6-v2 (off-topic
+    # scores reach 0.66).
+    # Override with RAG_SCORE_THRESHOLD.
+    score_threshold: float = field(default_factory=lambda: _env_unit_float("RAG_SCORE_THRESHOLD", 0.20))
     max_retries: int = 1  # at most one query rewrite
     max_query_chars: int = 400  # cap on a rewritten search query
     max_output_tokens: int = 512

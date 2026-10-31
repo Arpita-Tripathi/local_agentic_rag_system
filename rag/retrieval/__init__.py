@@ -18,6 +18,7 @@ def build_search(
     index = build_or_load(chunks, doc_hash, embedder, cache_dir)
     search = make_search(index, embedder)
     search.name = f"hybrid ({getattr(embedder, 'name', 'embedder')} + BM25)"  # type: ignore[attr-defined]
+    search.index_meta = index.meta  # type: ignore[attr-defined]  # shown in the UI as index provenance
     return search
 
 

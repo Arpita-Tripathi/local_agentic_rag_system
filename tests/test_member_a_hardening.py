@@ -51,6 +51,7 @@ def app(monkeypatch):
     monkeypatch.setattr("rag.providers.get_provider", lambda mode=None, cloud_consent=False: provider)
     monkeypatch.setattr("rag.runlog.log_run", lambda *a, **k: None)
     monkeypatch.setattr("rag.summaries.clear_doc_summaries", lambda *a, **k: 0)
+    monkeypatch.setattr("rag.runlog.purge_doc", lambda *a, **k: 0)
 
     def make(doc=None):
         at = AppTest.from_file(APP, default_timeout=30)
@@ -184,10 +185,35 @@ def test_env_example_has_no_control_characters():
 def test_env_example_documents_every_variable_the_code_reads():
     pattern = r"RAG_[A-Z_]+|OPENROUTER_API_KEY"
     read = set(re.findall(pattern, (ROOT / "rag" / "config.py").read_text("utf-8")))
-    read |= set(re.findall(pattern, (ROOT / "rag" / "providers.py").read_text("utf-8")))
+    for extra in [ROOT / "rag" / "providers.py", *sorted((ROOT / "rag" / "retrieval").glob("*.py"))]:
+        read |= set(re.findall(pattern, extra.read_text("utf-8")))
     documented = set(re.findall(pattern, (ROOT / ".env.example").read_text("utf-8")))
     assert read <= documented, f"undocumented: {sorted(read - documented)}"
 
 
 def test_streamlit_secrets_are_gitignored():
     assert ".streamlit/secrets.toml" in (ROOT / ".gitignore").read_text(encoding="utf-8")
+
+
+# ---------- tunable retrieval threshold and embedder ----------
+def test_score_threshold_default_and_env_override(monkeypatch):
+    monkeypatch.delenv("RAG_SCORE_THRESHOLD", raising=False)
+    assert Config().score_threshold == 0.20
+    monkeypatch.setenv("RAG_SCORE_THRESHOLD", "0.35")
+    assert Config().score_threshold == 0.35
+    monkeypatch.setenv("RAG_SCORE_THRESHOLD", " ")
+    assert Config().score_threshold == 0.20
+
+
+@pytest.mark.parametrize("bad", ["high", "1.5", "-0.1"])
+def test_bad_score_threshold_is_rejected(monkeypatch, bad):
+    monkeypatch.setenv("RAG_SCORE_THRESHOLD", bad)
+    with pytest.raises(ValueError, match="RAG_SCORE_THRESHOLD"):
+        Config()
+
+
+def test_default_embedder_is_the_multilingual_model(monkeypatch):
+    from rag.retrieval.index import DEFAULT_EMBED_MODEL
+
+    monkeypatch.delenv("RAG_EMBED_MODEL", raising=False)
+    assert DEFAULT_EMBED_MODEL == "paraphrase-multilingual-MiniLM-L12-v2"

@@ -21,7 +21,9 @@ from rag.config import CONFIG
 log = logging.getLogger(__name__)
 
 INDEX_FORMAT = 1
-DEFAULT_EMBED_MODEL = "all-MiniLM-L6-v2"
+# Chosen from the benchmark (README): Recall@1 95.1% vs 80.5% for all-MiniLM-L6-v2, and the only one whose
+# scores separate off-topic from answerable questions (see config.score_threshold).
+DEFAULT_EMBED_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 
 # Maps a list of texts to an (n, dim) float32 array of L2-normalised vectors. Carries a `.name`.
 Embedder = Callable[[List[str]], np.ndarray]

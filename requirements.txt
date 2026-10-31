@@ -9,6 +9,7 @@ numpy==2.5.3
 
 # UI
 streamlit==1.66.1
+pandas==3.1.0  # imported by pages/1_Benchmark.py
 
 # OCR for scanned pages (also needs the Tesseract program + Hindi/English data installed)
 pillow==13.0.0

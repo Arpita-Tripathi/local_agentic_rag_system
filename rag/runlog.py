@@ -7,6 +7,7 @@ import hashlib
 import json
 import logging
 import os
+import tempfile
 import time
 from typing import Dict
 
@@ -36,3 +37,37 @@ def log_run(question: str, result: Dict, doc_hash: str = "", cache_dir: str = CO
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
     except OSError as e:
         log.warning("Could not write the run log: %s", e)
+
+
+def purge_doc(doc_hash: str, cache_dir: str = CONFIG.cache_dir) -> int:
+    """Delete one document's records from the run log. Returns how many were removed. Never raises.
+
+    Called when the user removes a document, so its questions do not outlive it.
+    """
+    path = os.path.join(cache_dir, "runs.jsonl")
+    try:
+        with open(path, encoding="utf-8") as f:
+            lines = f.read().splitlines()
+    except OSError:
+        return 0
+    kept, removed = [], 0
+    for line in lines:
+        try:
+            belongs = json.loads(line).get("doc_hash") == doc_hash
+        except (ValueError, AttributeError):
+            belongs = False  # keep lines we cannot read; they cannot be attributed to this document
+        if belongs:
+            removed += 1
+        else:
+            kept.append(line)
+    if not removed:
+        return 0
+    try:
+        fd, tmp = tempfile.mkstemp(dir=cache_dir, suffix=".tmp")
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write("".join(line + "\n" for line in kept))
+        os.replace(tmp, path)  # atomic: an interrupted purge never leaves a half-written log
+    except OSError as e:
+        log.warning("Could not purge the run log: %s", e)
+        return 0
+    return removed

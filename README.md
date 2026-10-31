@@ -26,7 +26,7 @@ without text, PDFs over 50 MB or 300 pages (configurable in `rag/config.py`).
 
 ## Setup
 
-Python 3.10 or newer. About 5 GB of disk for the local model.
+Python 3.10 or newer. About 5 GB of disk for the local model, plus about 0.5 GB for the embedding model.
 
 ```powershell
 python -m venv .venv
@@ -77,38 +77,58 @@ python -m eval.run_eval --answers local  # also run Gemma: answer support and ci
 python -m eval.bench_parsers --out eval/results/parsers.json
 ```
 
-The embedding model is chosen with `RAG_EMBED_MODEL` (default `all-MiniLM-L6-v2`).
+The embedding model is chosen with `RAG_EMBED_MODEL` (default `paraphrase-multilingual-MiniLM-L12-v2`, about 470 MB,
+downloaded on first use; this needs internet once). `RAG_SCORE_THRESHOLD` sets the score cut-off.
 
 ## Benchmark results
 
 63 hand-written questions over 6 invented sample PDFs: English, Hindi, Hinglish (Roman-script Hindi),
-code-switched, table and scanned cases; 46 answerable, 17 unanswerable. The sample text is original, so
-the files are free to share. Measured with Python 3.12 on a Windows 11 laptop (AMD Radeon 610M, no discrete
-GPU), retrieval only, one index per PDF. 56 of the 63 questions ran: the 7 scanned-page questions need
-Tesseract, which was not installed for these runs. See `eval/results/` for the full per-question data.
+code-switched, table and scanned cases; 46 answerable, 17 unanswerable. The sample text is original, so the
+files are free to share. 56 of the 63 questions ran: the 7 scanned-page questions need Tesseract, which was not
+installed for these runs. Retrieval only, no language model. Run on 2026-10-31 on Windows 11, Python 3.12.10,
+an 18-thread Intel CPU (retrieval runs on the CPU). Each result file in `eval/results/` records its own
+platform, settings and every per-question row; the Benchmark page reads them.
 
-| Embedding model | Recall@1 | Recall@3 | Recall@5 | Hinglish R@1 | Code-switched R@1 |
-|---|---|---|---|---|---|
-| all-MiniLM-L6-v2 (default) | 80.5% | 100% | 100% | 80% | 50% |
-| paraphrase-multilingual-MiniLM-L12-v2 | 95.1% | 100% | 100% | 100% | 75% |
+One index per PDF (how the app works), score threshold 0.20:
 
-With all sample PDFs in one index (`--library`), Recall@1 is 78.0% against 92.7% and Recall@5 is 100% for
-both. Median search time is about 19 ms and 42 ms (the multilingual model is larger and slower; timings
-vary between runs). The multilingual model ranks better, most clearly on
-Hinglish and mixed-script questions.
+| Embedding model | Recall@1 | Recall@3 | Recall@5 | Hindi R@1 | Hinglish R@1 | Code-switched R@1 | Off-topic abstained |
+|---|---|---|---|---|---|---|---|
+| paraphrase-multilingual-MiniLM-L12-v2 (default) | 95.1% | 100% | 100% | 90% | 100% | 75% | 100% |
+| all-MiniLM-L6-v2 | 80.5% | 100% | 100% | 90% | 80% | 50% | 60% |
+
+With all sample PDFs in one index (`--library`, harder): multilingual Recall@1 92.7%, Recall@5 100%,
+off-topic abstained 80%; all-MiniLM-L6-v2 Recall@1 78.0%, Recall@5 100%, off-topic abstained 60%. Median search
+time is about 22 ms (multilingual) and 12 ms (all-MiniLM) per PDF. The saved multilingual run has one
+slow outlier (p95 2.2 s, likely model warm-up), so treat p95 as noisy. The multilingual model is the default
+because it ranks better on Hinglish and mixed-script questions, and because its scores separate off-topic
+questions from answerable ones (below).
+
+### Choosing the score threshold
+
+The app drops passages whose cosine similarity is below `RAG_SCORE_THRESHOLD` (default 0.20) before the model is
+asked. Measured with the multilingual model:
+
+| Threshold | One index per PDF: gold passage kept | Off-topic abstained | One index for all PDFs: kept | Off-topic abstained |
+|---|---|---|---|---|
+| 0.15 | 100% | 60% | 100% | 40% |
+| **0.20 (default)** | 97.6% | 100% | 97.6% | 80% |
+| 0.25 | 95.1% | 100% | 95.1% | 80% |
+| 0.30 | 90.2% | 100% | 90.2% | 100% |
+
+0.20 abstains on every off-topic question for a single PDF while losing the gold passage for one answerable
+question of 41. A higher value loses more answerable questions, and a lower one lets off-topic questions through.
+Two limits: there are only 5 off-topic questions, so this is a starting point to re-tune on real PDFs; and
+near-miss questions (on topic, answer absent) score 0.29 to 0.64, so no sensible threshold catches them. Only the
+model can abstain on those. The English-only all-MiniLM-L6-v2 has no such gap (off-topic questions reach 0.66),
+so the default threshold does not suit it.
 
 Read these with care:
 
 - **Recall@5 is saturated.** Each sample PDF has only 2 to 8 passages, so a top-5 list holds most of the
-  document. Recall@1 and the library run are the informative numbers. A larger corpus is needed for a real Recall@5.
-- **The score threshold is mis-set.** The app drops passages scoring below 0.15, but cosine scores for
-  unrelated questions go far higher: up to 0.66 with the default model and 0.64 with the multilingual one.
-  Retrieval abstained on only 3 of the 5 off-topic questions, and on none of the 10 near-miss questions
-  (on topic, answer absent). For the multilingual model, a threshold near 0.30 would have abstained on all 5
-  off-topic questions while keeping 93% of answerable ones. With 5 off-topic questions that is a hint, not a
-  tuned value. Near-miss questions cannot be caught by a score; only the model can abstain on those.
+  document. Recall@1 and the one-index run are the informative numbers. A larger corpus is needed for a real Recall@5.
 - **Answer-level numbers are not measured yet.** Answer support, citation accuracy and unsupported claims need
-  a Gemma run (`--answers local`). Until that is done, no claim is made about them.
+  a Gemma run (`--answers local`), and the local model has not been run for this benchmark. Until that is done,
+  no claim is made about them.
 - **Docling is not benchmarked here.** `pypdf` kept the evidence for 41 of 46 answerable questions; the 5
   misses are the scanned PDF, which has no text layer. Run `eval.bench_parsers` with Docling installed to compare.
 
@@ -118,7 +138,9 @@ unsupported claims) are targets, not results.
 ## Limitations
 
 - The sample set is small and synthetic. Real PDFs will do worse, especially scanned and table-heavy ones.
-- Hindi quality depends on the embedding model. The default English-only model is weak on Devanagari.
+- Hindi quality depends on the embedding model. The default multilingual model handles Devanagari and
+  Hinglish far better than the English-only all-MiniLM-L6-v2, but it is still small and only tested on a few
+  Hindi questions.
 - Hindi PDFs whose fonts have no Unicode mapping extract as garbage. Such pages are detected, discarded and
   sent to OCR, but extraction that looks plausible and is wrong cannot be detected.
 - OCR accuracy depends on scan quality. Wrong OCR text can still be cited, but with the page number it came from.

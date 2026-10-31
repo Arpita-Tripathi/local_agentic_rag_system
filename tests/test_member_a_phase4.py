@@ -139,6 +139,7 @@ def app(monkeypatch):
     monkeypatch.setattr("rag.providers.get_provider", lambda mode=None, cloud_consent=False: provider)
     monkeypatch.setattr("rag.runlog.log_run", lambda q, r, d="": runs.append((q, r["reason"])))
     monkeypatch.setattr("rag.summaries.clear_doc_summaries", lambda *a, **k: 0)
+    monkeypatch.setattr("rag.runlog.purge_doc", lambda *a, **k: 0)
 
     def make(doc=None):
         at = AppTest.from_file(APP, default_timeout=30)

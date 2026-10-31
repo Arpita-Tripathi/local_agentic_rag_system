@@ -16,8 +16,8 @@ from rag.ingest import ingest_pdf
 from rag.ingest.validate import PDFValidationError, save_upload
 from rag.pipeline import ask, describe_reason
 from rag.providers import ProviderError, get_provider
-from rag.runlog import log_run
-from rag.summaries import clear_doc_summaries
+from rag.runlog import log_run, purge_doc
+from rag.summaries import clear_doc_summaries, summarize_chunk
 from rag.textsafe import escape_markdown as esc
 
 log = logging.getLogger("app")
@@ -51,8 +51,9 @@ def _remove_document() -> None:
     if doc:
         search_backend.delete_index(doc["doc_hash"])
         clear_doc_summaries(doc["doc_hash"])
+        purge_doc(doc["doc_hash"])
         st.session_state.pop(f"consent_{doc['doc_hash']}", None)
-    for key in ("doc", "history", "preview_page", "provider_cloud", "failed_upload"):
+    for key in ("doc", "history", "preview_page", "provider_cloud", "failed_upload", "explained"):
         st.session_state.pop(key, None)
     st.session_state.uploader_n = st.session_state.get("uploader_n", 0) + 1
 
@@ -149,11 +150,40 @@ def _sidebar(doc) -> None:
             st.caption(f"{doc['n_pages']} pages · {len(doc['chunks'])} passages · "
                        f"parser: {', '.join(doc['parsers'])}")
             st.caption(f"Search: {doc['backend']}")
+            meta = getattr(doc["search"], "index_meta", None)
+            if meta:
+                st.caption(f"Index: {meta['n_chunks']} passages of up to {meta['chunk_size']} characters "
+                           f"(overlap {meta['chunk_overlap']}), "
+                           f"embedding model {esc(meta['embedding_model'])}")
             st.button("Remove document and index", on_click=_remove_document, use_container_width=True)
 
 
 # ---------- answer rendering ----------
-def _render_turn(i: int, turn: dict, doc: dict) -> None:
+def _explain_table(i: int, cite: dict, doc: dict, provider) -> None:
+    """On-demand table summary: one model call, cached on disk. Never runs unless the user clicks."""
+    key = (doc["doc_hash"], cite["id"])
+    explained = st.session_state.setdefault("explained", {})
+    if key in explained:
+        st.markdown(esc(explained[key]))
+        return
+    if not st.button("Explain this table", key=f"explain-{i}-{cite['id']}", disabled=provider is None,
+                     help="Asks the selected model to summarise this table. One call; the result is cached."):
+        return
+    chunk = next((c for c in doc["chunks"] if c["id"] == cite["id"]), None)
+    if chunk is None:
+        return
+    try:
+        with st.spinner("Summarising the table…"):
+            out = summarize_chunk(chunk, provider)
+    except ProviderError as e:
+        st.error(esc(e))
+        return
+    if out["summary"]:
+        explained[key] = out["summary"]
+        st.markdown(esc(out["summary"]))
+
+
+def _render_turn(i: int, turn: dict, doc: dict, provider=None) -> None:
     res = turn["result"]
     with st.chat_message("user"):
         st.markdown(esc(turn["question"]))
@@ -168,6 +198,8 @@ def _render_turn(i: int, turn: dict, doc: dict) -> None:
             for cite in res["citations"]:
                 with st.expander(f"Evidence · page {cite['page']} · {cite['parser'] or 'unknown parser'}"):
                     st.markdown(esc(cite["snippet"]))
+                    if cite.get("type") == "table":
+                        _explain_table(i, cite, doc, provider)
         else:
             st.markdown(esc(res["answer"]))
             why = describe_reason(res["reason"])
@@ -264,7 +296,7 @@ def main() -> None:
         if not st.session_state.history:
             st.caption("No questions yet. Try asking about a specific fact in the document.")
         for i, turn in enumerate(st.session_state.history):
-            _render_turn(i, turn, doc)
+            _render_turn(i, turn, doc, provider)
     with preview:
         _preview(doc)
 

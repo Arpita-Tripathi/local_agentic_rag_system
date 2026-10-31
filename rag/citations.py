@@ -19,5 +19,6 @@ def resolve(source_ids: List[str], retrieved: List[Dict], snippet_chars: int = 2
             "page": chunk["page"],
             "snippet": chunk["text"][:snippet_chars],
             "parser": chunk.get("parser", ""),
+            "type": chunk.get("type", "text"),
         })
     return out

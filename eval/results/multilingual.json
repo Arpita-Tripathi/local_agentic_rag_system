@@ -5,7 +5,7 @@
   "mode": "per document",
   "answers": "retrieval only",
   "top_k": 5,
-  "score_threshold": 0.15,
+  "score_threshold": 0.2,
   "chunk_size": 1000,
   "chunk_overlap": 150,
   "parser": "pypdf@6.21.4",
@@ -20,11 +20,11 @@
   },
   "n_questions": 63,
   "n_run": 56,
-  "index_build_s": 26.12,
+  "index_build_s": 16.92,
   "hardware": {
-   "platform": "Windows-11-10.0.26200-SP0",
-   "processor": "AMD64 Family 23 Model 160 Stepping 0, AuthenticAMD",
-   "cpus": 8,
+   "platform": "Windows-11-10.0.26300-SP0",
+   "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+   "cpus": 18,
    "python": "3.12.10"
   }
  },
@@ -35,14 +35,14 @@
   "recall@3": 1.0,
   "recall@5": 1.0,
   "mrr@5": 0.9756,
-  "recall@5_kept": 1.0,
-  "abstain_retrieval": 0.2,
-  "abstain_off_topic": 0.6,
+  "recall@5_kept": 0.9756,
+  "abstain_retrieval": 0.3333,
+  "abstain_off_topic": 1.0,
   "abstain_near_miss": 0.0,
   "top_score_answerable_median": 0.546,
   "top_score_unanswerable_max": 0.637,
-  "search_ms_median": 42.25,
-  "search_ms_p95": 67.0
+  "search_ms_median": 21.55,
+  "search_ms_p95": 2188.9
  },
  "by_language": {
   "en": {
@@ -53,13 +53,13 @@
    "recall@5": 1.0,
    "mrr@5": 1.0,
    "recall@5_kept": 1.0,
-   "abstain_retrieval": 0.2222,
-   "abstain_off_topic": 0.6667,
+   "abstain_retrieval": 0.3333,
+   "abstain_off_topic": 1.0,
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.546,
    "top_score_unanswerable_max": 0.538,
-   "search_ms_median": 42.3,
-   "search_ms_p95": 59.0
+   "search_ms_median": 19.2,
+   "search_ms_p95": 2188.9
   },
   "hi": {
    "n_answerable": 10,
@@ -68,14 +68,14 @@
    "recall@3": 1.0,
    "recall@5": 1.0,
    "mrr@5": 0.95,
-   "recall@5_kept": 1.0,
-   "abstain_retrieval": 0.25,
-   "abstain_off_topic": 0.5,
+   "recall@5_kept": 0.9,
+   "abstain_retrieval": 0.5,
+   "abstain_off_topic": 1.0,
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.631,
    "top_score_unanswerable_max": 0.637,
-   "search_ms_median": 43.85,
-   "search_ms_p95": 67.0
+   "search_ms_median": 28.55,
+   "search_ms_p95": 1301.8
   },
   "hinglish": {
    "n_answerable": 5,
@@ -90,8 +90,8 @@
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.313,
    "top_score_unanswerable_max": 0.299,
-   "search_ms_median": 38.1,
-   "search_ms_p95": 83.5
+   "search_ms_median": 53.3,
+   "search_ms_p95": 93.7
   },
   "mixed": {
    "n_answerable": 4,
@@ -106,8 +106,8 @@
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.6,
    "top_score_unanswerable_max": 0.394,
-   "search_ms_median": 34.5,
-   "search_ms_p95": 35.6
+   "search_ms_median": 13.6,
+   "search_ms_p95": 2458.8
   }
  },
  "by_case_type": {
@@ -124,8 +124,8 @@
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.57,
    "top_score_unanswerable_max": 0.297,
-   "search_ms_median": 38.6,
-   "search_ms_p95": 52.6
+   "search_ms_median": 20.95,
+   "search_ms_p95": 2316.8
   },
   "text": {
    "n_answerable": 35,
@@ -134,37 +134,23 @@
    "recall@3": 1.0,
    "recall@5": 1.0,
    "mrr@5": 0.9714,
-   "recall@5_kept": 1.0,
-   "abstain_retrieval": 0.2308,
-   "abstain_off_topic": 0.6,
+   "recall@5_kept": 0.9714,
+   "abstain_retrieval": 0.3846,
+   "abstain_off_topic": 1.0,
    "abstain_near_miss": 0.0,
    "top_score_answerable_median": 0.537,
    "top_score_unanswerable_max": 0.637,
-   "search_ms_median": 42.4,
-   "search_ms_p95": 67.0
+   "search_ms_median": 21.55,
+   "search_ms_p95": 1413.1
   }
  },
  "weak_cases": [
-  {
-   "id": "en19",
-   "language": "en",
-   "case_type": "text",
-   "question": "Who won the football world cup?",
-   "why": "off-topic question but retrieval kept passages (top score 0.183)"
-  },
   {
    "id": "hi08",
    "language": "hi",
    "case_type": "text",
    "question": "आँकड़े किसने दर्ज किए?",
-   "why": "gold page ranked 2, not 1"
-  },
-  {
-   "id": "hi11",
-   "language": "hi",
-   "case_type": "text",
-   "question": "भारत की राजधानी क्या है?",
-   "why": "off-topic question but retrieval kept passages (top score 0.162)"
+   "why": "gold page dropped by the score threshold (top score 0.373)"
   },
   {
    "id": "mx02",
@@ -218,7 +204,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.573,
-   "latency_ms": 45.5
+   "latency_ms": 1413.1
   },
   {
    "id": "en02",
@@ -263,7 +249,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.546,
-   "latency_ms": 45.4
+   "latency_ms": 14.4
   },
   {
    "id": "en03",
@@ -308,7 +294,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.536,
-   "latency_ms": 56.3
+   "latency_ms": 220.0
   },
   {
    "id": "en04",
@@ -353,7 +339,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.53,
-   "latency_ms": 52.5
+   "latency_ms": 18.1
   },
   {
    "id": "en05",
@@ -398,7 +384,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.504,
-   "latency_ms": 42.5
+   "latency_ms": 16.7
   },
   {
    "id": "en06",
@@ -443,7 +429,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.488,
-   "latency_ms": 59.0
+   "latency_ms": 1751.9
   },
   {
    "id": "en07",
@@ -488,7 +474,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.661,
-   "latency_ms": 51.8
+   "latency_ms": 24.9
   },
   {
    "id": "en08",
@@ -533,7 +519,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.455,
-   "latency_ms": 36.2
+   "latency_ms": 17.5
   },
   {
    "id": "en09",
@@ -578,7 +564,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.537,
-   "latency_ms": 32.7
+   "latency_ms": 21.9
   },
   {
    "id": "en10",
@@ -623,7 +609,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.581,
-   "latency_ms": 48.2
+   "latency_ms": 18.4
   },
   {
    "id": "en11",
@@ -668,7 +654,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.615,
-   "latency_ms": 43.1
+   "latency_ms": 15.3
   },
   {
    "id": "en12",
@@ -713,7 +699,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.533,
-   "latency_ms": 33.2
+   "latency_ms": 299.5
   },
   {
    "id": "en13",
@@ -758,7 +744,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.71,
-   "latency_ms": 42.2
+   "latency_ms": 793.1
   },
   {
    "id": "en14",
@@ -803,7 +789,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.435,
-   "latency_ms": 30.4
+   "latency_ms": 1065.9
   },
   {
    "id": "en15",
@@ -848,7 +834,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.572,
-   "latency_ms": 35.9
+   "latency_ms": 13.5
   },
   {
    "id": "en16",
@@ -893,7 +879,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.43,
-   "latency_ms": 42.3
+   "latency_ms": 15.6
   },
   {
    "id": "en17",
@@ -938,7 +924,7 @@
    "kept_gold": false,
    "abstained": true,
    "top_score": 0.0,
-   "latency_ms": 37.8
+   "latency_ms": 14.2
   },
   {
    "id": "en18",
@@ -983,7 +969,7 @@
    "kept_gold": false,
    "abstained": true,
    "top_score": 0.026,
-   "latency_ms": 40.3
+   "latency_ms": 335.5
   },
   {
    "id": "en19",
@@ -1026,9 +1012,9 @@
     "5": false
    },
    "kept_gold": false,
-   "abstained": false,
+   "abstained": true,
    "top_score": 0.183,
-   "latency_ms": 40.8
+   "latency_ms": 13.9
   },
   {
    "id": "en20",
@@ -1073,7 +1059,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.527,
-   "latency_ms": 69.5
+   "latency_ms": 642.4
   },
   {
    "id": "en21",
@@ -1118,7 +1104,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.369,
-   "latency_ms": 55.9
+   "latency_ms": 15.9
   },
   {
    "id": "en22",
@@ -1163,7 +1149,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.376,
-   "latency_ms": 46.8
+   "latency_ms": 19.2
   },
   {
    "id": "en23",
@@ -1208,7 +1194,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.538,
-   "latency_ms": 41.6
+   "latency_ms": 302.6
   },
   {
    "id": "hg01",
@@ -1253,7 +1239,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.313,
-   "latency_ms": 43.2
+   "latency_ms": 90.6
   },
   {
    "id": "hg02",
@@ -1298,7 +1284,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.483,
-   "latency_ms": 33.0
+   "latency_ms": 93.7
   },
   {
    "id": "hg03",
@@ -1343,7 +1329,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.236,
-   "latency_ms": 31.5
+   "latency_ms": 19.6
   },
   {
    "id": "hg04",
@@ -1388,7 +1374,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.457,
-   "latency_ms": 57.5
+   "latency_ms": 22.4
   },
   {
    "id": "hg05",
@@ -1433,7 +1419,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.278,
-   "latency_ms": 83.5
+   "latency_ms": 84.2
   },
   {
    "id": "hg06",
@@ -1478,7 +1464,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.299,
-   "latency_ms": 33.0
+   "latency_ms": 19.8
   },
   {
    "id": "hi01",
@@ -1513,7 +1499,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.69,
-   "latency_ms": 48.6
+   "latency_ms": 35.9
   },
   {
    "id": "hi02",
@@ -1548,7 +1534,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.442,
-   "latency_ms": 44.3
+   "latency_ms": 14.5
   },
   {
    "id": "hi03",
@@ -1583,7 +1569,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.512,
-   "latency_ms": 67.0
+   "latency_ms": 116.7
   },
   {
    "id": "hi04",
@@ -1618,7 +1604,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.695,
-   "latency_ms": 41.0
+   "latency_ms": 118.0
   },
   {
    "id": "hi05",
@@ -1653,7 +1639,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.766,
-   "latency_ms": 48.0
+   "latency_ms": 17.3
   },
   {
    "id": "hi06",
@@ -1688,7 +1674,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.728,
-   "latency_ms": 43.4
+   "latency_ms": 16.0
   },
   {
    "id": "hi07",
@@ -1723,7 +1709,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.711,
-   "latency_ms": 42.1
+   "latency_ms": 82.5
   },
   {
    "id": "hi08",
@@ -1755,10 +1741,10 @@
     "3": true,
     "5": true
    },
-   "kept_gold": true,
+   "kept_gold": false,
    "abstained": false,
    "top_score": 0.373,
-   "latency_ms": 43.6
+   "latency_ms": 433.5
   },
   {
    "id": "hi09",
@@ -1793,7 +1779,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.573,
-   "latency_ms": 53.0
+   "latency_ms": 14.1
   },
   {
    "id": "hi10",
@@ -1828,7 +1814,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.521,
-   "latency_ms": 34.3
+   "latency_ms": 21.2
   },
   {
    "id": "hi11",
@@ -1861,9 +1847,9 @@
     "5": false
    },
    "kept_gold": false,
-   "abstained": false,
+   "abstained": true,
    "top_score": 0.162,
-   "latency_ms": 61.7
+   "latency_ms": 1301.8
   },
   {
    "id": "hi12",
@@ -1898,7 +1884,7 @@
    "kept_gold": false,
    "abstained": true,
    "top_score": 0.148,
-   "latency_ms": 44.1
+   "latency_ms": 19.9
   },
   {
    "id": "hi13",
@@ -1933,7 +1919,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.557,
-   "latency_ms": 33.1
+   "latency_ms": 14.0
   },
   {
    "id": "hi14",
@@ -1968,7 +1954,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.637,
-   "latency_ms": 37.0
+   "latency_ms": 82.9
   },
   {
    "id": "mx01",
@@ -2003,7 +1989,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.634,
-   "latency_ms": 34.5
+   "latency_ms": 118.7
   },
   {
    "id": "mx02",
@@ -2038,7 +2024,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.557,
-   "latency_ms": 35.6
+   "latency_ms": 13.6
   },
   {
    "id": "mx03",
@@ -2073,7 +2059,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.693,
-   "latency_ms": 34.8
+   "latency_ms": 10.8
   },
   {
    "id": "mx04",
@@ -2108,7 +2094,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.566,
-   "latency_ms": 32.8
+   "latency_ms": 2458.8
   },
   {
    "id": "mx05",
@@ -2143,7 +2129,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.394,
-   "latency_ms": 31.9
+   "latency_ms": 12.7
   },
   {
    "id": "tb01",
@@ -2173,7 +2159,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.608,
-   "latency_ms": 52.6
+   "latency_ms": 2316.8
   },
   {
    "id": "tb02",
@@ -2203,7 +2189,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.648,
-   "latency_ms": 52.1
+   "latency_ms": 15.7
   },
   {
    "id": "tb03",
@@ -2233,7 +2219,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.546,
-   "latency_ms": 44.3
+   "latency_ms": 18.9
   },
   {
    "id": "tb04",
@@ -2263,7 +2249,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.553,
-   "latency_ms": 38.5
+   "latency_ms": 2188.9
   },
   {
    "id": "tb05",
@@ -2293,7 +2279,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.587,
-   "latency_ms": 35.1
+   "latency_ms": 481.0
   },
   {
    "id": "tb06",
@@ -2323,7 +2309,7 @@
    "kept_gold": true,
    "abstained": false,
    "top_score": 0.285,
-   "latency_ms": 35.9
+   "latency_ms": 12.9
   },
   {
    "id": "tb07",
@@ -2353,7 +2339,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.297,
-   "latency_ms": 34.9
+   "latency_ms": 23.0
   },
   {
    "id": "tb08",
@@ -2383,7 +2369,7 @@
    "kept_gold": false,
    "abstained": false,
    "top_score": 0.289,
-   "latency_ms": 38.7
+   "latency_ms": 17.3
   }
  ]
 }
