@@ -17,7 +17,7 @@ _LIST_MARKER = re.compile(r"(?m)^\s*\d+[.)]\s")
 _NUMBER = re.compile(r"\d+(?:\.\d+)?")
 # Letters plus Devanagari vowel signs and marks (\w alone splits Hindi words at every matra),
 # but not the danda (U+0964, U+0965) or Devanagari digits (U+0966 to U+096F).
-_WORD = re.compile(r"(?:[^\W\d_]|[ऀ-ॣ॰-ॿ])+")
+_WORD = re.compile(r"(?:[^\W\d_]|[\u0900-\u0963\u0970-\u097f])+")
 
 _EN_UNITS = {w: i for i, w in enumerate(
     "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen "

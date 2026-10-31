@@ -130,3 +130,54 @@ def test_ocr_pages_are_reported_as_ocr_quality(tmp_path, monkeypatch):
 def test_a_page_of_ordinary_text_is_good_end_to_end(tmp_path):
     out = ingest_pdf(_pdf(tmp_path / "g.pdf", [("Helvetica", GOOD)]), layout="off")
     assert out["page_quality"][0]["level"] == "good" and out["warnings"] == []
+
+
+# ---------- regression: NUL characters from lost Hindi vowel signs ----------
+BROKEN_HINDI = "1. प\x00रचय यह \x00रपोट\x00 एक काल्पिनक गाँव रामपुर म\x00 वषा\x00 के आँकड़ों का सार प्र\x00ुत करती है।"
+
+
+def test_lost_vowel_signs_are_scored_and_explained_in_plain_words():
+    q = assess_page(BROKEN_HINDI, ["NirmalaUI"])
+    assert q["level"] in ("fair", "poor") and not q["legacy_font"]
+    assert any("lost in extraction" in r and "vowel signs" in r for r in q["reasons"])
+
+
+def test_other_unreadable_symbols_keep_the_generic_wording():
+    q = assess_page("plain english text " * 4 + "�" * 12, [])
+    assert any("unreadable symbols" in r for r in q["reasons"])
+
+
+def test_nul_characters_never_reach_the_stored_text(monkeypatch):
+    class Page:
+        def extract_text(self):
+            return BROKEN_HINDI
+
+        def get(self, key):
+            return None
+
+    class Reader:
+        def __init__(self, path):
+            self.pages = [Page()]
+
+    monkeypatch.setattr("rag.ingest.extract.PdfReader", Reader)
+    page = extract_pages("x.pdf")[0]
+    assert "\x00" not in page["text"] and "�" not in page["text"]
+    assert "रामपुर" in page["text"]  # the readable words are kept
+    assert page["quality"]["level"] in ("fair", "poor")  # but the page is still marked as damaged
+    assert not page["image_only"]
+
+
+def test_ordinary_control_characters_like_newline_and_tab_are_kept(monkeypatch):
+    class Page:
+        def extract_text(self):
+            return "Line one of the page text.\nLine two\twith a tab, long enough to count."
+
+        def get(self, key):
+            return None
+
+    class Reader:
+        def __init__(self, path):
+            self.pages = [Page()]
+
+    monkeypatch.setattr("rag.ingest.extract.PdfReader", Reader)
+    assert "\n" in extract_pages("x.pdf")[0]["text"] and "\t" in extract_pages("x.pdf")[0]["text"]

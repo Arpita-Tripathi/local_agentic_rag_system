@@ -211,6 +211,14 @@ unsupported claims) are targets, not results.
   Hindi questions.
 - Hindi PDFs whose fonts have no Unicode mapping extract as garbage. Such pages are detected, discarded and
   sent to OCR, but extraction that looks plausible and is wrong cannot be detected.
+- Real Hindi PDFs with embedded fonts lose characters in `pypdf`. A one-page test PDF printed from Edge lost
+  about 5% of its characters (Hindi vowel signs and conjunct letters, for example "परिचय" came out as "परचय"). The
+  page is scored "fair" and listed under "Pages to double-check". Gemma still answered 4 of 4 questions about it
+  correctly, but one answer repeated the damaged spelling. This is one PDF, not a benchmark. OCR or Docling may
+  extract Hindi better; neither has been compared.
+- The local model runs on the integrated GPU by default. That GPU is shared with other programs and the driver
+  can reset it ("[Device] is lost"). The app then reloads the model on the CPU and retries once, and shows
+  "(cpu)" next to the model name. Set `RAG_LITERT_BACKEND=cpu` to skip the GPU.
 - OCR accuracy depends on scan quality. Wrong OCR text can still be cited, but with the page number it came from.
 - Answers come from a small local model and can be wrong even when the citation is right. Check the snippet.
 
@@ -222,6 +230,7 @@ Check these again before a release.
 |---|---|
 | pypdf (default parser) | BSD-3-Clause |
 | PyMuPDF | AGPL. **Not used**, deliberately |
+| pypdfium2 / PDFium (page preview image) | BSD-3-Clause or Apache-2.0. PDFium is native code, so it only opens files that passed validation |
 | Docling (optional) | MIT |
 | Tesseract (optional) | Apache-2.0 |
 | sentence-transformers, rank-bm25, Streamlit | Apache-2.0 |

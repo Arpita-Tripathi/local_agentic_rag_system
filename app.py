@@ -4,7 +4,6 @@ Run:  streamlit run app.py
 Local-only is the default. Nothing leaves this device unless the user switches to cloud mode and
 agrees, for this document, to send retrieved excerpts.
 """
-import base64
 import logging
 import os
 
@@ -15,6 +14,7 @@ from rag.config import CONFIG
 from rag.ingest import ingest_pdf
 from rag.ingest.validate import PDFValidationError, save_upload
 from rag.pipeline import ask, describe_reason
+from rag.preview import render_page_png
 from rag.providers import ProviderError, get_provider
 from rag.runlog import log_run, purge_doc
 from rag.summaries import clear_doc_summaries, summarize_chunk
@@ -33,18 +33,27 @@ log = logging.getLogger("app")
 
 LOCAL, CLOUD = "Local only (default)", "Send excerpts to cloud"
 MAX_QUESTION_CHARS = 2000
-MAX_EMBED_BYTES = 8 << 20  # bigger PDFs skip the embedded viewer; evidence text is still shown
+MAX_PAGE_IMAGES = 12  # rendered pages kept in memory per document
 
 st.set_page_config(page_title="Ask your PDF", page_icon="📄", layout="wide")
 
 
 # ---------- helpers ----------
-def _viewer_src(data: bytes, page: int) -> str:
-    """A data: URL the browser's built-in PDF viewer can open at a given page (no JavaScript involved).
+def _page_image(doc: dict, page: int):
+    """PNG of one page, drawn on the server (browsers refuse to show an embedded PDF data: URL).
 
-    Deliberately not cached: a cache would keep a removed document's bytes in memory.
+    Kept in session state, not in a shared cache, so removing the document removes its images too.
     """
-    return "data:application/pdf;base64," + base64.b64encode(data).decode("ascii") + f"#page={page}"
+    images = st.session_state.setdefault("page_images", {})
+    key = (doc["doc_hash"], page)
+    if key not in images:
+        png = render_page_png(doc["bytes"], page)
+        if png is None:
+            return None
+        while len(images) >= MAX_PAGE_IMAGES:
+            images.pop(next(iter(images)))
+        images[key] = png
+    return images[key]
 
 
 def _go_to_page(page: int) -> None:
@@ -64,7 +73,7 @@ def _remove_document() -> None:
         clear_doc_translations(doc["doc_hash"])
         st.session_state.pop(f"consent_{doc['doc_hash']}", None)
     for key in ("doc", "history", "preview_page", "provider_cloud", "failed_upload", "explained",
-                "translated"):
+                "translated", "page_images"):
         st.session_state.pop(key, None)
     st.session_state.uploader_n = st.session_state.get("uploader_n", 0) + 1
 
@@ -286,11 +295,12 @@ def _preview(doc: dict) -> None:
     page_q = next((q for q in doc.get("page_quality", []) if q["page"] == page), None)
     if page_q:
         st.caption(esc(quality_line(page_q)))
-    if len(doc["bytes"]) <= MAX_EMBED_BYTES:
-        st.iframe(_viewer_src(doc["bytes"], page), height=640)
+    image = _page_image(doc, page)
+    if image is not None:
+        st.image(image, caption=f"Page {page} of {doc['n_pages']}", use_container_width=True)
     else:
-        st.info("This file is too large for the embedded viewer. The extracted text is shown below.")
-    with st.expander(f"Text extracted from page {page}", expanded=len(doc["bytes"]) > MAX_EMBED_BYTES):
+        st.info("The page image is not available here. The extracted text is shown below.")
+    with st.expander(f"Text extracted from page {page}", expanded=image is None):
         texts = [c["text"] for c in doc["chunks"] if c["page"] == page]
         st.markdown(esc("\n\n".join(texts)) if texts else "No text was extracted from this page.")
 

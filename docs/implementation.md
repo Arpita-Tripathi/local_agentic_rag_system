@@ -230,7 +230,7 @@ Member A
 **Gate: the demo runs from a fresh setup.**
 
 Member A
-- [x] Streamlit UI: upload with progress, page preview, clickable citations, evidence snippets. *(tested with Streamlit's test harness; the embedded page viewer has not been checked in a real browser)*
+- [x] Streamlit UI: upload with progress, page preview, clickable citations, evidence snippets. *(driven end to end in a real headless Edge: upload, question, citation, translation; the page preview is an image drawn on the server because Edge blocks an embedded PDF data: URL)*
 - [x] Modes: Local only (default) and Send excerpts to cloud.
   - Show a consent prompt before any excerpt leaves the device.
   - Never fall back from local to cloud without asking.

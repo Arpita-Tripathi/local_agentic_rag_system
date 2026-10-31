@@ -18,7 +18,10 @@ log = logging.getLogger(__name__)
 logging.getLogger("pypdf").setLevel(logging.ERROR)
 
 _CID = re.compile(r"\(cid:\d+\)")
-_JUNK_CHAR = re.compile(r"[�-\x00-\x08\x0b\x0c\x0e-\x1f]")
+_JUNK_CHAR = re.compile(r"[\ufffd\ue000-\uf8ff\x00-\x08\x0b\x0c\x0e-\x1f]")
+# Control characters (pypdf emits NUL where a Hindi vowel sign or conjunct could not be mapped) must never
+# reach a prompt or an index: a NUL can cut a prompt short inside native code.
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\ufffd]")
 
 
 def looks_garbled(text: str, threshold: float = 0.1) -> bool:
@@ -59,6 +62,7 @@ def extract_pages(path: str, min_chars: int = CONFIG.min_page_chars) -> List[Dic
             log.warning("Page %d text looks garbled (%s); it will need OCR.", i,
                         "; ".join(quality["reasons"]) or "unreadable symbols")
             text = ""
+        text = _CONTROL.sub("", text)  # the quality score above was computed on the raw text
         image_only = garbled or len(text) < min_chars
         pages.append({"page": i, "text": text, "image_only": image_only, "garbled": garbled,
                       "quality": quality})

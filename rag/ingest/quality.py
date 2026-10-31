@@ -11,9 +11,9 @@ from typing import Dict, List
 
 _LEGACY_FONT_HINTS = ("kruti", "devlys", "chanakya", "shreedev", "shree-dev", "shree dev", "shusha")
 # Dependent vowel signs, virama, nukta, anusvara etc. cannot start a word in correct Devanagari.
-_NEVER_WORD_INITIAL = re.compile(r"^[ऀ-ःऺ-ॏ॑-ॗॢॣ]")
-_HAS_DEVANAGARI = re.compile(r"[ऀ-ॿ]")
-_JUNK = re.compile(r"[�-\x00-\x08\x0b\x0c\x0e-\x1f]|\(cid:\d+\)")
+_NEVER_WORD_INITIAL = re.compile(r"^[\u0900-\u0903\u093a-\u094f\u0951-\u0957\u0962\u0963]")
+_HAS_DEVANAGARI = re.compile(r"[\u0900-\u097f]")
+_JUNK = re.compile(r"[\ufffd\ue000-\uf8ff\x00-\x08\x0b\x0c\x0e-\x1f]|\(cid:\d+\)")
 
 
 def page_fonts(page) -> List[str]:
@@ -61,7 +61,11 @@ def assess_page(text: str, fonts: List[str]) -> Dict:
     junk = len(_JUNK.findall(text)) / max(len(text), 1)
     if junk > 0.01:
         score -= min(0.9, junk * 8)
-        reasons.append(f"{junk:.0%} of the characters are unreadable symbols")
+        if _HAS_DEVANAGARI.search(text):
+            reasons.append(f"{junk:.0%} of the characters were lost in extraction (usually Hindi vowel signs "
+                           "and conjunct letters), so some words will not match")
+        else:
+            reasons.append(f"{junk:.0%} of the characters are unreadable symbols")
     orphans = orphan_ratio(text)
     if orphans > 0.03:
         score -= min(0.6, orphans * 3)

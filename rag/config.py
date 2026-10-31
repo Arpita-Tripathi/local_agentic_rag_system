@@ -11,6 +11,7 @@ except ImportError:
     pass
 
 VALID_MODES = ("local", "cloud")
+VALID_BACKENDS = ("auto", "gpu", "cpu")
 
 
 def _pypdf_tag() -> str:
@@ -25,6 +26,13 @@ def _env_mode() -> str:
     if mode not in VALID_MODES:
         raise ValueError(f"RAG_MODE must be one of {VALID_MODES}, got {mode!r}.")
     return mode
+
+
+def _env_backend() -> str:
+    backend = os.environ.get("RAG_LITERT_BACKEND", "auto").strip().lower()
+    if backend not in VALID_BACKENDS:
+        raise ValueError(f"RAG_LITERT_BACKEND must be one of {VALID_BACKENDS}, got {backend!r}.")
+    return backend
 
 
 def _env_unit_float(name: str, default: float) -> float:
@@ -77,6 +85,7 @@ class Config:
     mode: str = field(default_factory=_env_mode)  # "local" (default) or "cloud" (needs consent)
     model_dir: str = field(default_factory=lambda: os.environ.get("RAG_MODEL_DIR", "./models"))
     litert_model: str = field(default_factory=lambda: os.environ.get("RAG_LITERT_MODEL", "gemma-4-E4B-it"))
+    litert_backend: str = field(default_factory=_env_backend)  # auto (GPU, then CPU) | gpu | cpu
     cloud_model: str = field(default_factory=lambda: os.environ.get("RAG_CLOUD_MODEL", ""))
     cloud_timeout_s: int = 60
 
