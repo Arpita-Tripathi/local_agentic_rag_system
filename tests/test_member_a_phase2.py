@@ -44,6 +44,14 @@ def _fake_tesseract(monkeypatch, text=LONG, langs=("eng", "hin"), version="5.3.0
     return calls
 
 
+# ---------- pypdf log noise ----------
+def test_pypdf_font_map_warnings_are_not_shown():
+    import logging
+
+    assert logging.getLogger("pypdf").level == logging.ERROR
+    assert logging.getLogger("pypdf._cmap").getEffectiveLevel() == logging.ERROR
+
+
 # ---------- garbled detection ----------
 def test_looks_garbled():
     assert looks_garbled("(cid:12)(cid:45)(cid:7) " * 5)

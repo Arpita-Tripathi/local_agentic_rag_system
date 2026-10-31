@@ -11,6 +11,11 @@ from rag.ingest.validate import PDFValidationError
 
 log = logging.getLogger(__name__)
 
+# pypdf warns once per page about emoji/symbol fonts whose character maps it can't fully read
+# ("Odd-length string", "Skipping broken line"). It skips those entries and still extracts the text,
+# so only real errors are shown. Our own per-page failures and garbled-text warnings are logged below.
+logging.getLogger("pypdf").setLevel(logging.ERROR)
+
 _CID = re.compile(r"\(cid:\d+\)")
 _JUNK_CHAR = re.compile(r"[�-\x00-\x08\x0b\x0c\x0e-\x1f]")
 
